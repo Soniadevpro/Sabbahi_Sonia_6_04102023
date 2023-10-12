@@ -1,19 +1,27 @@
-// fonction asynchrone pour récupérer les catégories
-async function fetchCateg() {
-  // Effectuer une requête HTTP asynchrone vers l'URL spécifiée
-  const requete = await fetch("http://localhost:5678/api/categories");
+// Appeler la fonction
+// fetchCateg().then((categories) => {
+//   console.log(categories);
+// });
 
-  // Vérif de la requête
-  if (requete.ok === true) {
-    // Si la requête réussi, renvoyer les données JSON
-    return requete.json();
-  } else {
-    // Si la requête a échoué, lancer un message d'erreur
-    throw new Error("Impossible de contacter le serveur");
-  }
+async function init() {
+  const categories = await fetchCateg();
+
+  showCategories(categories);
+  console.log(categories);
+
+  const works = await fetchWorks();
+  showWorks(works);
+  console.log(works);
 }
 
-// Appeler la fonction
-fetchCateg().then((categories) => {
-  console.log(categories);
-});
+init();
+
+const gallery = document.querySelector(".filterbar");
+
+function showCategories(categories) {
+  // Creation des categories HTML
+}
+
+function showWorks(works) {
+  // Creation des works HTML
+}
