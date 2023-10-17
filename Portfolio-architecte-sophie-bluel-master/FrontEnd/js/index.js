@@ -7,18 +7,35 @@ async function init() {
   const categories = await fetchCateg();
 
   showCategories(categories);
-  console.log(categories);
 
   const works = await fetchWorks();
   showWorks(works);
-  console.log(works);
 }
 
 init();
 
 const gallery = document.querySelector(".gallery");
+const buttons = document.querySelectorAll(".filterbar button");
+const worksFilters = document.querySelectorAll(".gallery figure");
+const filterShow = document.querySelector(".filterbar");
+//event
+//for (let a = 0; a < buttons.length; a++) {
+//buttons[a].addEventListener("click", filterImg);
+//}
 
-function showCategories(categories) {}
+function showCategories(categories) {
+  for (let a = 0; a < categories.length; a++) {
+    //créa article et apport du contenu dynamique
+    const categoriesProjets = document.createElement("button");
+    //atribution des class
+    categoriesProjets.setAttribute("class", "button");
+    //attribution d'un id
+    categoriesProjets.setAttribute("id", categories[a].id);
+    categoriesProjets.textContent = categories[a].name;
+    filterShow.appendChild(categoriesProjets);
+    console.log(categories);
+  }
+}
 // Creation des categories HTML
 
 function showWorks(works) {
@@ -42,5 +59,8 @@ function showWorks(works) {
     worksProjets.appendChild(img);
     worksProjets.appendChild(sousTitre);
   }
+
   // Creation des works HTML
 }
+
+// créa des categories
