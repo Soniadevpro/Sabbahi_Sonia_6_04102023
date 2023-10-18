@@ -63,30 +63,7 @@ function showWorks(works) {
 
   // Creation des works HTML
 }
-
-for (let a = 0; a < buttons.length; a++) {
-  buttons[a].addEventListener("click", filterImg);
-  // console.log("clickbtn");
-}
-
-function filterImg(a) {
-  const btnType = parseInt(a.target.getAttribute("categoryId"));
-  // Boucle au travers des travaux
-  worksFilters.forEach((work) => {
-    // Montrer tous les travaux
-    work.classList.remove("hidden");
-    // Récup les données depuis les attributs de données
-    // Récup le type de donnée image
-    const workType = parseInt(work.dataset.category);
-
-    // Si le type image différent du type bouton
-    if (workType !== btnType) {
-      // Cacher le travail
-      work.classList.add("hidden");
-    }
-  });
-}
-
+// Tous
 buttons[0].addEventListener("click", () => {
   worksFilters.forEach((work) => {
     work.classList.remove("hidden");
@@ -105,6 +82,8 @@ allWorks.addEventListener("click", () => {
     // console.log(allWorks);
   });
 });
+
+//Objets
 document.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => {
     const objWorks = document.getElementsByClassName("btnCat")[1];
@@ -114,6 +93,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
       fetchWorks().then((response) => {
         let filterWorks = response.filter((work) => work.categoryId === 1);
+        //console.log(filterWorks);
+        showWorks(filterWorks);
+      });
+    });
+  }, 1000);
+});
+//Appartements
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => {
+    const apptWorks = document.getElementsByClassName("btnCat")[2];
+    apptWorks.addEventListener("click", () => {
+      let galleryFilter = document.querySelector(".gallery");
+      galleryFilter.innerHTML = "";
+
+      fetchWorks().then((response) => {
+        let filterWorks = response.filter((work) => work.categoryId === 2);
+        // console.log(filterWorks);
+        showWorks(filterWorks);
+      });
+    });
+  }, 1000);
+});
+//Restaus hôtels
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => {
+    const hotWorks = document.getElementsByClassName("btnCat")[3];
+    hotWorks.addEventListener("click", () => {
+      let galleryFilter = document.querySelector(".gallery");
+      galleryFilter.innerHTML = "";
+
+      fetchWorks().then((response) => {
+        let filterWorks = response.filter((work) => work.categoryId === 3);
         console.log(filterWorks);
         showWorks(filterWorks);
       });
