@@ -29,22 +29,11 @@ function showCategories(categories) {
     //créa article et apport du contenu dynamique
     const categoriesProjets = document.createElement("button");
     //atribution des class
-    categoriesProjets.setAttribute("class", "button");
+    categoriesProjets.setAttribute("class", "btnCat");
     //attribution d'un id
     categoriesProjets.setAttribute("id", categories[a].id);
     categoriesProjets.textContent = categories[a].name;
     filterShow.appendChild(categoriesProjets);
-
-    categoriesProjets.addEventListener("click", () => {
-      let galleryFilter = document.querySelector(".gallery");
-      galleryFilter.innerHTML = "";
-
-      fetchWorks().then((response) => {
-        let filterWorks = response.filter((work) => work.categoryId === 1);
-
-        showWorks(filterWorks);
-      });
-    });
   }
 }
 
@@ -54,7 +43,7 @@ function showWorks(works) {
   for (let b = 0; b < works.length; b++) {
     //créa article et apport du contenu dynamique
     const worksProjets = document.createElement("figure");
-    //atribution des class
+    //attribution des class
     worksProjets.setAttribute("class", "figure");
     //attribution d'un id
     worksProjets.setAttribute("id", works[b].id);
@@ -75,10 +64,15 @@ function showWorks(works) {
   // Creation des works HTML
 }
 
-function filterImg(d) {
-  const btnType = parseInt(d.target.getAttribute("categoryId"));
+for (let a = 0; a < buttons.length; a++) {
+  buttons[a].addEventListener("click", filterImg);
+  // console.log("clickbtn");
+}
+
+function filterImg(a) {
+  const btnType = parseInt(a.target.getAttribute("categoryId"));
   // Boucle au travers des travaux
-  works.forEach((work) => {
+  worksFilters.forEach((work) => {
     // Montrer tous les travaux
     work.classList.remove("hidden");
     // Récup les données depuis les attributs de données
@@ -94,22 +88,35 @@ function filterImg(d) {
 }
 
 buttons[0].addEventListener("click", () => {
-  works.forEach((work) => {
+  worksFilters.forEach((work) => {
     work.classList.remove("hidden");
   });
 });
 
-const allWorks = document.getElementsByClassName("button")[0];
+const allWorks = document.getElementsByClassName("btnCat")[0];
 allWorks.addEventListener("click", () => {
-  console.log("afficher les travaux");
+  // console.log("afficher les travaux");
 
   let galleryFilter = document.querySelector(".gallery");
   galleryFilter.innerHTML = "";
 
   fetchWorks().then((response) => {
-    let filterWorks = response.filter((work) => work.categoryId === 1);
-
-    showWorks(filterWorks);
-    console.log(allWorks);
+    showWorks(response);
+    // console.log(allWorks);
   });
+});
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => {
+    const objWorks = document.getElementsByClassName("btnCat")[1];
+    objWorks.addEventListener("click", () => {
+      let galleryFilter = document.querySelector(".gallery");
+      galleryFilter.innerHTML = "";
+
+      fetchWorks().then((response) => {
+        let filterWorks = response.filter((work) => work.categoryId === 1);
+        console.log(filterWorks);
+        showWorks(filterWorks);
+      });
+    });
+  }, 1000);
 });
