@@ -25,3 +25,7 @@ async function fetchWorks() {
     throw new Error("Impossible de contacter le serveur");
   }
 }
+
+//----------------------------------------------------
+// RQT FETCH POST AVEC LES DONNEES DU FORMULAIRE DU SWAGGER
+//--------------------------------------------------------
