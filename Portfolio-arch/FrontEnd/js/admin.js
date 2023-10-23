@@ -23,7 +23,7 @@ if (authUser) {
   worksAdmin.classList.add("margin_log");
   const banner = document.querySelector(".banner");
   banner.classList.remove("hidden");
-  const modif = document.querySelector(".modif-works");
+  const modif = document.querySelectorAll(".modif-works");
   modif.forEach((element) => {
     element.classList.remove("hidden");
   });

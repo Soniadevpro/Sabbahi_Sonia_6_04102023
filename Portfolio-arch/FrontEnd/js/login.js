@@ -52,5 +52,3 @@ function submitForm(event) {
       }
     });
 }
-
-//console.log(" Ici la page de Login");
