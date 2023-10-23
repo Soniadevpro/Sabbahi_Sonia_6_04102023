@@ -45,12 +45,12 @@ function submitForm(event) {
         // Stockage du token en local
         localStorage.setItem("authToken", token);
         // Renvoi à la page d'accueil
-        window.location.href = "../../index.html";
+        window.location.href = "./index.html";
       } else {
         // Message d'erreur si mauvais identifiants
-        alert("Erreur dans l’identifiant ou le mot de passe.");
+        alert("Erreur d'adresse mail ou du mot de passe.");
       }
     });
 }
 
-console.log("Je suis sur la page de Login");
+//console.log("Je suis sur la page de Login");
