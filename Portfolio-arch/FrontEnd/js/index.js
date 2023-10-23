@@ -154,4 +154,3 @@ function showWorks(works) {
 //     });
 //   }, 1000);
 // });
-// Appel du token

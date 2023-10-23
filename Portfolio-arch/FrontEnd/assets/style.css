@@ -143,7 +143,16 @@ header {
 section {
   margin: 50px 0;
 }
-
+.banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: black;
+  padding: 20px;
+}
+.banner p {
+  color: white;
+}
 h1 {
   display: flex;
   flex-direction: column;
