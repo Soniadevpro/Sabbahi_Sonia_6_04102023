@@ -53,4 +53,4 @@ function submitForm(event) {
     });
 }
 
-//console.log("Je suis sur la page de Login");
+//console.log(" Ici la page de Login");
