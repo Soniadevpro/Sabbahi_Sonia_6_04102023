@@ -1,4 +1,7 @@
 // Déclaration de l'URL pour la requête fetch
+/***** LOGIN *****/
+
+// Déclaration de l'URL pour la requête fetch
 const urlLogin = "http://localhost:5678/api/users/login";
 
 // Déclaration du formulaire
@@ -36,7 +39,7 @@ function submitForm(event) {
     .then((response) => response.json())
     .then((data) => {
       // Affichage des données retournées dans la console
-      //console.log(data);
+      console.log(data);
       let token = data.token;
       if (token) {
         // Stockage du token en local
