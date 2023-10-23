@@ -130,7 +130,7 @@ table {
 }
 /** end reset css**/
 body {
-  max-width: 1140px;
+  max-width: 1440px;
   margin: auto;
   font-family: "Work Sans";
   font-size: 14px;
@@ -215,7 +215,31 @@ li:hover {
 }
 #portfolio h2 {
   text-align: center;
+}
+.fa-solid,
+.fas {
+  font-weight: 900;
+}
+.works-admin {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
   margin-bottom: 1em;
+  margin-top: 110px;
+}
+
+.modif-works {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  text-decoration: none;
+  color: black;
+}
+.modifier {
+  color: black;
+  text-decoration: none;
 }
 .filterbar {
   display: flex;
