@@ -36,6 +36,8 @@ function showCategories(categories, works) {
   filterShow.appendChild(categoriesProjets);
 
   categoriesProjets.addEventListener("click", () => {
+    const allCategoryButtons = document.querySelectorAll(".btnCat");
+    allCategoryButtons.forEach((button) => button.classList.remove("selected"));
     showWorks(works);
   });
 
@@ -50,6 +52,13 @@ function showCategories(categories, works) {
     categoriesProjets.textContent = categorie.name;
     filterShow.appendChild(categoriesProjets);
     categoriesProjets.addEventListener("click", () => {
+      const allCategoryButtons = document.querySelectorAll(".btnCat");
+      allCategoryButtons.forEach((button) => button.classList.remove("selected"));
+
+      // Sélectionner le bouton de catégorie actuel
+      categoriesProjets.classList.add("selected");
+
+      //filtrer les categories
       let filterWorks = works.filter((work) => work.categoryId === categorie.id);
       showWorks(filterWorks);
     });

@@ -4,19 +4,14 @@
 // Déclaration de l'URL pour la requête fetch
 const urlLogin = "http://localhost:5678/api/users/login";
 
-// Déclaration du formulaire
 const loginForm = document.querySelector("form");
-// On écoute l'évenement lors de l'envoi des identifiants
 loginForm.addEventListener("submit", submitForm);
 
 function submitForm(event) {
-  // On empêche le refresh de la page par défaut
   event.preventDefault();
 
-  // Déclaration des valeurs à lier à l'objet
   const email = document.querySelector("#email").value;
   const password = document.querySelector(".password").value;
-
   // Déclaration de l'objet à envoyer
   const formData = {
     email: email,
@@ -25,7 +20,7 @@ function submitForm(event) {
 
   // Déclaration de la valeur de l'option body
   const formJSON = JSON.stringify(formData);
-  console.log(formJSON);
+  //console.log(formJSON);
 
   // Requête fetch méthode POST
   fetch(urlLogin, {
@@ -39,7 +34,7 @@ function submitForm(event) {
     .then((response) => response.json())
     .then((data) => {
       // Affichage des données retournées dans la console
-      console.log(data);
+
       let token = data.token;
       if (token) {
         // Stockage du token en local
@@ -52,3 +47,5 @@ function submitForm(event) {
       }
     });
 }
+
+console.log("page login");

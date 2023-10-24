@@ -14,17 +14,17 @@ if (authUser) {
     localStorage.clear();
     // Renvoi à l'accueil
     window.location.href = "./index.html";
-    console.log("Vous avez été déconnectée avec succès.");
-  });
 
-  const filter = document.querySelector(".filterbar");
-  filter.classList.add("hidden");
-  const worksAdmin = document.querySelector(".works-admin");
-  worksAdmin.classList.add("margin_log");
-  const banner = document.querySelector(".banner");
-  banner.classList.remove("hidden");
-  const modif = document.querySelectorAll(".modif-works");
-  modif.forEach((element) => {
-    element.classList.remove("hidden");
+    const filter = document.querySelector(".filterbar");
+    filter.classList.add("hidden");
+    const worksAdmin = document.querySelector(".works-admin");
+    worksAdmin.classList.add("margin_log");
+    const banner = document.querySelector(".banner");
+    banner.classList.remove("hidden");
+    const modif = document.querySelectorAll(".modif-works");
+    modif.forEach((element) => {
+      element.classList.remove("hidden");
+    });
+    console.log("Vous avez été déconnectée avec succès.");
   });
 }

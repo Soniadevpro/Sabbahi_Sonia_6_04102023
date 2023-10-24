@@ -145,10 +145,12 @@ section {
 }
 .banner {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   background: black;
   padding: 20px;
+  justify-content: center;
+  gap: 10px;
 }
 .banner p {
   color: white;
@@ -263,6 +265,10 @@ button:hover {
   transition: 400ms ease;
   transform: scale(1.1);
 }
+.btnCat .selected {
+  background-color: #1d6154;
+  color: white;
+}
 .gallery {
   width: 100%;
   display: grid;
@@ -274,6 +280,43 @@ button:hover {
 .gallery img {
   width: 100%;
 }
+
+.modalwind {
+  width: 630px;
+  height: 688px;
+
+  border: black solid 2px;
+  border-radius: 10px;
+  background: white;
+  padding: 20px;
+}
+.modalwind h3 {
+  font-size: 26px;
+  text-align: center;
+  padding: 20px;
+}
+.modalphotos {
+  border: red solid 4px;
+
+  height: 200px;
+  padding: 20px;
+  display: flex;
+}
+.modalsubmit {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+.modalsubmit input {
+  width: 200px;
+  padding: 10px 15px;
+  border-radius: 60px;
+  background: #1d6154;
+  color: white;
+  font-family: Syne;
+  font-size: 14px;
+}
+
 #contact {
   width: 50%;
   margin: auto;
