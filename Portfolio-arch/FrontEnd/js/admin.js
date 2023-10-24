@@ -2,6 +2,7 @@
 const authUser = localStorage.getItem("authToken");
 
 // Modifications de l'accueil lorsque administrateur
+
 if (authUser) {
   // Le bouton login devient logout
   const loginBtn = document.querySelector(".login");
@@ -14,17 +15,5 @@ if (authUser) {
     localStorage.clear();
     // Renvoi à l'accueil
     window.location.href = "./index.html";
-
-    const filter = document.querySelector(".filterbar");
-    filter.classList.add("hidden");
-    const worksAdmin = document.querySelector(".works-admin");
-    worksAdmin.classList.add("margin_log");
-    const banner = document.querySelector(".banner");
-    banner.classList.remove("hidden");
-    const modif = document.querySelectorAll(".modif-works");
-    modif.forEach((element) => {
-      element.classList.remove("hidden");
-    });
-    console.log("Vous avez été déconnectée avec succès.");
   });
 }

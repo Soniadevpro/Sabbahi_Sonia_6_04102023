@@ -1,7 +1,5 @@
 // Déclaration de l'URL pour la requête fetch
-/***** LOGIN *****/
 
-// Déclaration de l'URL pour la requête fetch
 const urlLogin = "http://localhost:5678/api/users/login";
 
 const loginForm = document.querySelector("form");
