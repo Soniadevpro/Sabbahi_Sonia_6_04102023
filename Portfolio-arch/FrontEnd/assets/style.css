@@ -143,17 +143,27 @@ header {
 section {
   margin: 50px 0;
 }
-.banner {
+.edit-banner {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  background: black;
-  padding: 20px;
   justify-content: center;
-  gap: 10px;
+  gap: 25px;
+  background-color: black;
+  padding: 12px;
+  display: none;
 }
-.banner p {
+
+.edit-banner_position {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1em;
+  padding-top: 3px;
   color: white;
+}
+
+.icon-banner-position i {
+  font-size: 1.18em;
+  margin-bottom: 3px;
 }
 h1 {
   display: flex;
@@ -222,26 +232,15 @@ li:hover {
 .fas {
   font-weight: 900;
 }
-.works-admin {
+.access-modal {
   display: flex;
-  flex-direction: row;
-  align-items: center;
   justify-content: center;
-  gap: 30px;
-  margin-bottom: 1em;
-  margin-top: 110px;
+  gap: 15px;
 }
-
-.modif-works {
+.button-modal {
   display: flex;
-  flex-direction: row;
-  gap: 12px;
-  text-decoration: none;
-  color: black;
-}
-.modifier {
-  color: black;
-  text-decoration: none;
+  align-items: center;
+  gap: 7px;
 }
 .filterbar {
   display: flex;
