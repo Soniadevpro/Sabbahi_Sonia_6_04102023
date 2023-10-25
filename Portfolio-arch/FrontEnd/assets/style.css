@@ -236,9 +236,10 @@ li:hover {
   display: flex;
   justify-content: center;
   gap: 15px;
+  margin-bottom: 20px;
 }
 .button-modal {
-  display: flex;
+  display: none;
   align-items: center;
   gap: 7px;
 }
