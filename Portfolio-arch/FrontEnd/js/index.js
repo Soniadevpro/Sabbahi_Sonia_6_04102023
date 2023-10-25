@@ -28,9 +28,7 @@ function showCategories(categories, works) {
   const filterShow = document.querySelector(".filterbar");
 
   const categoriesProjets = document.createElement("button");
-  //atribution des class
   categoriesProjets.setAttribute("class", "btnCat");
-  //attribution d'un id
   categoriesProjets.setAttribute("id", 0);
   categoriesProjets.textContent = "Tous";
   filterShow.appendChild(categoriesProjets);
@@ -38,28 +36,25 @@ function showCategories(categories, works) {
   categoriesProjets.addEventListener("click", () => {
     // Désélectionner tous les boutons de catégorie
     const allCategoryButtons = document.querySelectorAll(".btnCat");
-    allCategoryButtons.forEach((button) => button.classList.add("selected"));
-    categoriesProjets.classList.add("selected");
+    allCategoryButtons.forEach((button) => button.classList.remove("selected"));
     showWorks(works);
   });
 
   for (const categorie of categories) {
-    // for (let a = 0; a < categories.length; a++) {
-    //créa article et apport du contenu dynamique
     const categoriesProjets = document.createElement("button");
-    //atribution des class
     categoriesProjets.setAttribute("class", "btnCat");
-    //attribution d'un id
     categoriesProjets.setAttribute("id", categorie.id);
     categoriesProjets.textContent = categorie.name;
     filterShow.appendChild(categoriesProjets);
 
     categoriesProjets.addEventListener("click", () => {
       // Désélectionner tous les boutons de catégorie
-      allCategoryButtons.forEach((button) => button.classList.add("selected"));
+      const allCategoryButtons = document.querySelectorAll(".btnCat");
+      allCategoryButtons.forEach((button) => button.classList.remove("selected"));
+
       // Sélectionner le bouton de catégorie actuel
       categoriesProjets.classList.add("selected");
-      //filtrer les categories
+
       let filterWorks = works.filter((work) => work.categoryId === categorie.id);
       showWorks(filterWorks);
     });

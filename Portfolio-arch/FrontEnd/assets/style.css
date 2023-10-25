@@ -268,7 +268,7 @@ button:hover {
   transition: 400ms ease;
   transform: scale(1.1);
 }
-.btnCat .selected {
+.btnCat.selected {
   background-color: #1d6154;
   color: white;
 }
