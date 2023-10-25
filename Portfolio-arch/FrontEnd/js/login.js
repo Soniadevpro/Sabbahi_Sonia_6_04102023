@@ -53,13 +53,16 @@ form.addEventListener("submit", function (event) {
   })
     .then((response) => response.json())
     .then((data) => {
+      let token = data.token;
+      localStorage.setItem("authToken", token);
+
       // Traiter la réponse de l'API ici
-      if (data.success) {
-        alert("Échec de la connexion. Vérifiez vos informations.");
-      } else {
+      if (token) {
         alert("Connexion réussie !");
         // Redirection vers la page index
         window.location.href = "/Portfolio-arch/FrontEnd/index.html";
+      } else {
+        alert("Échec de la connexion. Vérifiez vos informations.");
       }
     })
     .catch((error) => {
