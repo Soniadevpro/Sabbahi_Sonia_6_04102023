@@ -10,6 +10,7 @@ if (token) {
   byeFilterBar.style.display = "none";
   buttonModal.style.display = "flex";
   changeLog.innerHTML = "logout";
+
   changeLog.addEventListener("click", () => {
     localStorage.removeItem("authToken");
     window.location.href = "./login.html";
