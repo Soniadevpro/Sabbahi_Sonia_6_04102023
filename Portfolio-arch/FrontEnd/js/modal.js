@@ -2,7 +2,7 @@ let modal = null;
 
 const openModal = function (e) {
   e.preventDefault();
-
+  console.log(e);
   const target = document.querySelector(e.target.getAttribute("href"));
   target.style.display = null;
   target.removeAttribute("aria-hidden");
