@@ -53,7 +53,7 @@ form.addEventListener("submit", function (event) {
   })
     .then((response) => response.json())
     .then((data) => {
-      let token = data.token;
+      const token = data.token;
       localStorage.setItem("authToken", token);
 
       // Traiter la réponse de l'API ici

@@ -91,6 +91,10 @@ function showWorks(works) {
 
   // Creation des works HTML
 }
+
+// function workForModal(works) {
+
+// }
 // Tous
 // buttons[0].addEventListener("click", () => {
 //   worksFilters.forEach((work) => {
