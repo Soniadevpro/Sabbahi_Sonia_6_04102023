@@ -97,8 +97,11 @@ function showModalWorks(works) {
 
     const img = document.createElement("img");
     img.src = workModal.imageUrl;
+    const icon = document.createElement("i");
+    icon.setAttribute("class", "fa-regular fa-trash-can");
 
     modalWrapp.appendChild(showInModal);
+    showInModal.appendChild(icon);
     showInModal.appendChild(img);
   }
 }

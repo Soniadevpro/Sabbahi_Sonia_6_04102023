@@ -426,3 +426,18 @@ footer nav ul {
   width: 74px;
   height: 104px;
 }
+
+.fa-trash-can {
+  position: relative;
+
+  bottom: 86px;
+  right: -70px;
+  background: black;
+  color: white;
+  padding: 4px;
+  font-size: 12px;
+  text-align: center;
+  border-radius: 2px;
+  width: 12px;
+  cursor: pointer;
+}
