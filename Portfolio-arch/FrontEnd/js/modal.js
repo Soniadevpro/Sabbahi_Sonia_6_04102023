@@ -1,3 +1,5 @@
+////// Ouverture et fermeture de la modal
+
 let modal = null;
 
 const openModal = function (e) {
@@ -30,6 +32,7 @@ const stopPropagation = function (e) {
 };
 document.querySelectorAll(".js-modal").forEach((a) => {
   a.addEventListener("click", openModal);
+  a.addEventListener("click", showCategories);
 });
 
 window.addEventListener("keydown", function (e) {

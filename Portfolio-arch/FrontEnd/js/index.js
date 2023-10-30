@@ -16,14 +16,6 @@ async function init() {
 
 init();
 
-// const buttons = document.querySelectorAll(".filterbar button");
-// const worksFilters = document.querySelectorAll(".gallery figure");
-
-//event
-//for (let a = 0; a < buttons.length; a++) {
-//buttons[a].addEventListener("click", filterImg);
-//}
-
 function showCategories(categories, works) {
   const filterShow = document.querySelector(".filterbar");
 
@@ -92,74 +84,30 @@ function showWorks(works) {
   // Creation des works HTML
 }
 
-// function workForModal(works) {
+function workForModal(works) {
+  const showWorkmod = document.querySelector(".workmodal");
+  showWorkmod.innerHTML = "";
 
-// }
-// Tous
-// buttons[0].addEventListener("click", () => {
-//   worksFilters.forEach((work) => {
-//     work.classList.remove("hidden");
-//   });
-// });
-
-// const allWorks = document.getElementsByClassName("btnCat")[0];
-// allWorks.addEventListener("click", () => {
-//   // console.log("afficher les travaux");
-
-//   // let galleryFilter = document.querySelector(".gallery");
-//   // galleryFilter.innerHTML = "";
-
-//   // fetchWorks().then((response) => {
-//   showWorks(response);
-//   // console.log(allWorks);
-//   // });
-// });
-
-// //Objets
-// document.addEventListener("DOMContentLoaded", () => {
-//   setTimeout(() => {
-//     const objWorks = document.getElementsByClassName("btnCat")[1];
-//     objWorks.addEventListener("click", () => {
-//       let galleryFilter = document.querySelector(".gallery");
-//       galleryFilter.innerHTML = "";
-
-//       fetchWorks().then((response) => {
-//         let filterWorks = response.filter((work) => work.categoryId === 1);
-//         //console.log(filterWorks);
-//         showWorks(filterWorks);
-//       });
-//     });
-//   }, 1000);
-// });
-// //Appartements
-// document.addEventListener("DOMContentLoaded", () => {
-//   setTimeout(() => {
-//     const apptWorks = document.getElementsByClassName("btnCat")[2];
-//     apptWorks.addEventListener("click", () => {
-//       let galleryFilter = document.querySelector(".gallery");
-//       galleryFilter.innerHTML = "";
-
-//       fetchWorks().then((response) => {
-//         let filterWorks = response.filter((work) => work.categoryId === 2);
-//         // console.log(filterWorks);
-//         showWorks(filterWorks);
-//       });
-//     });
-//   }, 1000);
-// });
-// //Restaus hôtels
-// document.addEventListener("DOMContentLoaded", () => {
-//   setTimeout(() => {
-//     const hotWorks = document.getElementsByClassName("btnCat")[3];
-//     hotWorks.addEventListener("click", () => {
-//       let galleryFilter = document.querySelector(".gallery");
-//       galleryFilter.innerHTML = "";
-
-//       fetchWorks().then((response) => {
-//         let filterWorks = response.filter((work) => work.categoryId === 3);
-//         console.log(filterWorks);
-//         showWorks(filterWorks);
-//       });
-//     });
-//   }, 1000);
-// });
+  for (const workModal of works) {
+    // for (let b = 0; b < works.length; b++) {
+    //créa article et apport du contenu dynamique
+    const workModal = document.createElement("figure");
+    //attribution des class
+    workModal.setAttribute("class", "figure");
+    //attribution d'un id
+    workModal.setAttribute("id", work.id);
+    // attribution des categories
+    workModal.setAttribute("data-category", work.categoryId);
+    //ajout d'une image
+    const img = document.createElement("img");
+    img.src = work.imageUrl;
+    //ajout d'un sous titre
+    const sousTitre = document.createElement("figsub");
+    sousTitre.innerHTML = work.title;
+    //asso enfant parent
+    gallery.appendChild(worksProjets);
+    worksProjets.appendChild(img);
+    worksProjets.appendChild(sousTitre);
+  }
+  showWorks(works);
+}
