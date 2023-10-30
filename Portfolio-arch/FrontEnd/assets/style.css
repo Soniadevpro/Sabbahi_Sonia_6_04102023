@@ -413,3 +413,16 @@ footer nav ul {
   top: -10px;
   left: 300px;
 }
+.workmodal {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 30px 80px 30px 80px;
+  padding-bottom: 50px;
+  border-bottom: 1px solid #b3b3b3;
+}
+.workmodal img {
+  width: 74px;
+  height: 104px;
+}

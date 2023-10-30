@@ -10,7 +10,7 @@ async function init() {
   showCategories(categories, works);
   console.log(categories, works);
   showWorks(works);
-
+  showModalWorks(works);
   // autrefontuon()
 }
 
@@ -84,30 +84,21 @@ function showWorks(works) {
   // Creation des works HTML
 }
 
-function workForModal(works) {
-  const showWorkmod = document.querySelector(".workmodal");
-  showWorkmod.innerHTML = "";
+// dans le modal wrapper je dois recupérer la fonction showWorks.
+
+function showModalWorks(works) {
+  const modalWrapp = document.querySelector(".workmodal");
+  modalWrapp.innerHTML = "";
 
   for (const workModal of works) {
-    // for (let b = 0; b < works.length; b++) {
-    //créa article et apport du contenu dynamique
-    const workModal = document.createElement("figure");
-    //attribution des class
-    workModal.setAttribute("class", "figure");
-    //attribution d'un id
-    workModal.setAttribute("id", work.id);
-    // attribution des categories
-    workModal.setAttribute("data-category", work.categoryId);
-    //ajout d'une image
+    const showInModal = document.createElement("figuremod");
+    showInModal.setAttribute("class", "figure-modal");
+    showInModal.setAttribute("id", workModal.id);
+
     const img = document.createElement("img");
-    img.src = work.imageUrl;
-    //ajout d'un sous titre
-    const sousTitre = document.createElement("figsub");
-    sousTitre.innerHTML = work.title;
-    //asso enfant parent
-    gallery.appendChild(worksProjets);
-    worksProjets.appendChild(img);
-    worksProjets.appendChild(sousTitre);
+    img.src = workModal.imageUrl;
+
+    modalWrapp.appendChild(showInModal);
+    showInModal.appendChild(img);
   }
-  showWorks(works);
 }
