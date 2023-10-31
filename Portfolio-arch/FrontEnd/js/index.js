@@ -105,5 +105,3 @@ function showModalWorks(works) {
     showInModal.appendChild(img);
   }
 }
-
-// Clique sur ajout de photo pour faire apparaitre la deuxième modal
