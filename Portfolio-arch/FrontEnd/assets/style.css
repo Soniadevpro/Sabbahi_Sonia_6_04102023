@@ -521,3 +521,18 @@ select {
   cursor: pointer;
   justify-content: center;
 }
+
+.js-modal-return {
+  position: relative;
+  left: -296px;
+}
+.js-modal-close2 {
+  position: relative;
+  right: -298px;
+  bottom: 24px;
+}
+.js-modal-close {
+  position: relative;
+  right: -298px;
+  bottom: 11px;
+}

@@ -60,8 +60,8 @@ const closeModal2 = function (e) {
   modal2.setAttribute("aria-hidden", "true");
   modal2.removeAttribute("aria-modal");
   modal2.removeEventListener("click", closeModal2);
-  modal2.querySelector(".js-modal-close").removeEventListener("click", closeModal2);
-  modal2.querySelector(".js-modal-stop").removeEventListener("click", stopPropagation);
+  modal2.querySelector(".js-modal-close2").removeEventListener("click", closeModal2);
+  modal2.querySelector(".js-modal-stop2").removeEventListener("click", stopPropagation);
   modal2 = null;
 };
 
