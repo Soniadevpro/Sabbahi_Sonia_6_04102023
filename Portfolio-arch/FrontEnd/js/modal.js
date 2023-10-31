@@ -32,11 +32,25 @@ const closeModal = function (e) {
 const stopPropagation = function (e) {
   e.stopPropagation();
 };
+
 document.querySelectorAll(".js-modal").forEach((a) => {
   a.addEventListener("click", openModal);
   // a.addEventListener("click", showModalWorks);
 });
 
+const addPhotosButton = document.querySelector(".addphotos");
+addPhotosButton.addEventListener("click", openSecondModal);
+
+function openSecondModal() {
+  const secondModal = document.querySelector("#modal2");
+  if (secondModal) {
+    secondModal.style.display = "block";
+    secondModal.removeAttribute("aria-hidden");
+    secondModal.setAttribute("aria-modal", "true");
+  }
+}
+
+// accessibilité clavier
 window.addEventListener("keydown", function (e) {
   if (e.key === "Escape" || e.key === "Esc") {
     closeModal(e);
