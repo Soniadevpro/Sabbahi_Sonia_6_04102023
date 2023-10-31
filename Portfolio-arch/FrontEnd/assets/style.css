@@ -375,7 +375,16 @@ footer nav ul {
   justify-content: flex-end;
   margin: 2em;
 }
+.button-modal {
+  text-decoration: none;
+  color: black;
 
+  transition: 0.15s ease-in;
+}
+.button-modal:hover {
+  color: #b1663c;
+  transform: scale(1.1);
+}
 .modal {
   position: fixed;
   display: flex;
@@ -458,10 +467,6 @@ footer nav ul {
   flex-direction: column;
   align-items: center;
   border-radius: 10px;
-}
-form input {
-  display: flex;
-  margin: 10px;
 }
 
 .background {

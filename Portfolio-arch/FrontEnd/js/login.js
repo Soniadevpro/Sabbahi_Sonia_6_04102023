@@ -1,33 +1,3 @@
-// const init2 = {
-//   method: "POST",
-//   headers: {
-//     "Content-Type": "application/json",
-//   },
-//   body: JSON.stringify({
-//     email: "inputMail",
-//     password: "inputPass",
-//   }),
-//   mode: "cors",
-//   credentials: "same-origin",
-// };
-
-// fetch("http://localhost:5678/api/users/login", init2).then(() => console.log("data envoyée"));
-
-// const result = fetch("http://localhost:5678/api/users/login", {
-//   method: "POST",
-//   headers: {
-//     "Content-Type": "application/json",
-//   },
-//   body: JSON.stringify({
-//     email: "inputMail",
-//     password: "inputPass",
-//   }),
-//   mode: "cors",
-//   credentials: "same-origin",
-// })
-//   .then((res) => res.json())
-//   .then((json) => console.log(json));
-
 const form = document.getElementById("form");
 
 form.addEventListener("submit", function (event) {
