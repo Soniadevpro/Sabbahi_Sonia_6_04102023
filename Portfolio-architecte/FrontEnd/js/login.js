@@ -30,7 +30,7 @@ form.addEventListener("submit", function (event) {
       if (token) {
         alert("Connexion réussie !");
         // Redirection vers la page index
-        window.location.href = "/Portfolio-arch/FrontEnd/index.html";
+        window.location.href = "./index.html";
       } else {
         alert("Échec de la connexion. Vérifiez vos informations.");
       }
