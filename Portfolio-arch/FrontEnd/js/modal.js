@@ -66,8 +66,10 @@ const closeModal2 = function (e) {
 };
 
 // accessibilité clavier
-window.addEventListener("keydown", function (e) {
-  if (e.key === "Escape" || e.key === "Esc") {
-    closeModal(e);
-  }
-});
+// window.addEventListener("keydown", function (e) {
+//   if (e.key === "Escape" || e.key === "Esc") {
+//     closeModal(e);
+//   }
+// });
+
+/////// ajout des picrures dans la deuxième modal

@@ -84,7 +84,7 @@ function showWorks(works) {
   // Creation des works HTML
 }
 
-// dans le modal wrapper je dois recupérer la fonction showWorks.
+// dans modal wrapper je dois recupérer la fonction showWorks.
 
 function showModalWorks(works) {
   const modalWrapp = document.querySelector(".workmodal");

@@ -536,3 +536,7 @@ select {
   right: -298px;
   bottom: 11px;
 }
+.form_valid {
+  display: flex;
+  justify-content: center;
+}
