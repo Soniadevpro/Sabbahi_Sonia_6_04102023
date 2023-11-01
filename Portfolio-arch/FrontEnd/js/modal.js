@@ -32,11 +32,11 @@ const closeModal = function (e) {
 const stopPropagation = function (e) {
   e.stopPropagation();
 };
-
 document.querySelectorAll(".js-modal").forEach((a) => {
   a.addEventListener("click", openModal);
 });
 
+// ouverture et fermeture de la seconde modal
 const addPhotosButton = document.querySelector(".addphotos");
 addPhotosButton.addEventListener("click", openSecondModal);
 
@@ -47,23 +47,25 @@ function openSecondModal() {
     secondModal.removeAttribute("aria-hidden");
     secondModal.setAttribute("aria-modal", "true");
     modal2 = secondModal;
-    modal2.addEventListener("click", closeModal2);
-    modal2.querySelector(".js-modal-close2").addEventListener("click", closeModal2);
+    modal2.addEventListener("click", returnModal);
+    modal2.querySelector(".js-modal-return").addEventListener("click", returnModal);
+    modal2.querySelector(".js-modal-close2").addEventListener("click", closeAllModal);
     modal2.querySelector(".js-modal-stop2").addEventListener("click", stopPropagation);
   }
 }
-
-const closeModal2 = function (e) {
+const closeAllModal = function (e) {
   if (modal2 === null) return;
   e.preventDefault();
   modal2.style.display = "none";
-  modal2.setAttribute("aria-hidden", "true");
-  modal2.removeAttribute("aria-modal");
-  modal2.removeEventListener("click", closeModal2);
-  modal2.querySelector(".js-modal-close2").removeEventListener("click", closeModal2);
-  modal2.querySelector(".js-modal-stop2").removeEventListener("click", stopPropagation);
-  modal2 = null;
+  modal.style.display = "none";
 };
+const returnModal = function (e) {
+  if (modal2 === null) return;
+  e.preventDefault();
+  modal2.style.display = "none";
+};
+
+// return de la modal
 
 // accessibilité clavier
 // window.addEventListener("keydown", function (e) {
