@@ -60,7 +60,6 @@ function showWorks(works) {
   gallery.innerHTML = "";
 
   for (const work of works) {
-    // for (let b = 0; b < works.length; b++) {
     //créa article et apport du contenu dynamique
     const worksProjets = document.createElement("figure");
     //attribution des class
