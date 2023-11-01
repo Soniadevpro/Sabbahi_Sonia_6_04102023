@@ -74,4 +74,5 @@ const returnModal = function (e) {
 //   }
 // });
 
-/////// ajout des picrures dans la deuxième modal
+// -------------Ajout des pictures dans la deuxième modal
+// ------------------------------------------------------------

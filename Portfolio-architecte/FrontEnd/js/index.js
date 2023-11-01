@@ -11,6 +11,7 @@ async function init() {
   console.log(categories, works);
   showWorks(works);
   showModalWorks(works);
+
   // autrefontuon()
 }
 
@@ -98,9 +99,23 @@ function showModalWorks(works) {
     img.src = workModal.imageUrl;
     const icon = document.createElement("i");
     icon.setAttribute("class", "fa-regular fa-trash-can");
+    icon.addEventListener("click", (e) => {
+      e.preventDefault();
 
+      console.log("ID de l'image : " + workModal.id);
+
+      fetchDelete(workModal.id);
+      removeImage(workModal.id);
+    });
     modalWrapp.appendChild(showInModal);
     showInModal.appendChild(icon);
     showInModal.appendChild(img);
+  }
+}
+
+function removeImage(imageId) {
+  const imageToRemove = document.querySelector(`.figure-modal[id="${imageId}"]`);
+  if (imageToRemove) {
+    imageToRemove.remove();
   }
 }

@@ -26,6 +26,26 @@ async function fetchWorks() {
   }
 }
 
+//-- fetch delete
+async function fetchDelete(imageId) {
+  const token = localStorage.getItem("authToken");
+  try {
+    const requete3 = await fetch(`http://localhost:5678/api/works/${imageId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (requete3.ok) {
+      console.log("Image supprimée avec succès");
+    } else {
+      alert("Erreur lors de la suppression de l'image");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 //----------------------------------------------------
 // RQT FETCH POST AVEC LES DONNEES DU FORMULAIRE DU SWAGGER
 //--------------------------------------------------------
