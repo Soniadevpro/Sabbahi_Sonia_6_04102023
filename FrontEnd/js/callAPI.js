@@ -38,6 +38,7 @@ async function fetchDelete(imageId) {
     });
     if (requete3.ok) {
       console.log("Image supprimée avec succès");
+      init();
     } else {
       alert("Erreur lors de la suppression de l'image");
     }

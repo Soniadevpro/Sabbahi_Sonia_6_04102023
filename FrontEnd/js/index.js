@@ -40,6 +40,8 @@ function showCategories(categories, works) {
     categoriesProjets.textContent = categorie.name;
     filterShow.appendChild(categoriesProjets);
 
+    // Ajouter les element de la modal
+
     categoriesProjets.addEventListener("click", () => {
       // Désélectionner tous les boutons de catégorie
       const allCategoryButtons = document.querySelectorAll(".btnCat");
@@ -105,7 +107,7 @@ function showModalWorks(works) {
       console.log("ID de l'image : " + workModal.id);
 
       fetchDelete(workModal.id);
-      removeImage(workModal.id);
+      // removeImage(workModal.id);
     });
     modalWrapp.appendChild(showInModal);
     showInModal.appendChild(icon);
