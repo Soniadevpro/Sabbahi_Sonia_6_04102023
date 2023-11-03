@@ -183,3 +183,72 @@ function clearImagePreview() {
 }
 
 //-----------VALIDATION CHAMPS DE FORMUILAIRE
+//---------------------------------------------
+function validateForm() {
+  const titleInput = document.getElementById("title");
+  const imageInput = document.getElementById("addPic");
+
+  if (titleInput.value.trim() === "") {
+    alert("Le champ titre ne peut pas être vide.");
+    return false; // Arrêtez l'envoi du formulaire
+  }
+
+  if (imageInput.files.length === 0) {
+    alert("Sélectionnez une image.");
+    return false; // Arrêtez l'envoi du formulaire
+  }
+
+  return true; // Permettez l'envoi du formulaire si la validation réussit
+}
+
+//----------- FORMDATA  POUR ENVOYER LES DONNEES
+//-----------------------------------------------------
+
+const myForm = document.getElementById("form_valid");
+myForm.addEventListener("submit", async (event) => {
+  event.preventDefault(); // Empêchez l'envoi par défaut du formulaire
+  if (!validateForm()) {
+    return; // Arrêtez l'envoi du formulaire si la validation échoue
+  }
+
+  const formData = new FormData(myForm);
+
+  // Ajoutez le token d'authentification (si nécessaire)
+  const token = localStorage.getItem("authToken");
+  if (token) {
+    formData.append("Authorization", `Bearer ${token}`);
+  }
+});
+
+//-Envoyer le formulaire et les données via le fetch avec la méthode POST
+
+async function handleSubmitForm(formData) {
+  // Utilisez le code de la requête fetch ici
+  const response = await fetch("http://localhost:5678/api/works", {
+    method: "POST",
+    body: formData,
+    headers: {
+      // Vous pouvez ajouter des en-têtes personnalisés ici
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (response.ok) {
+  } else {
+    alert("Une erreur s'est produite lors de l'envoi du formulaire.");
+  }
+}
+
+// Assurez-vous que le formulaire a un ID dans le HTML
+// Utilisation de document.querySelector pour sélectionner le formulaire
+// const form = document.querySelector("form");
+
+// form.addEventListener("submit", async (e) => {
+//   e.preventDefault(); // Empêche la soumission du formulaire par défaut
+
+//   // Récupérez les données du formulaire, par exemple, formData
+//   const formData = new FormData(form);
+
+//   // Appelez la fonction pour gérer la soumission du formulaire
+//   await handleSubmitForm(formData);
+// });

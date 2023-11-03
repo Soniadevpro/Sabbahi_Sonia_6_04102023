@@ -48,5 +48,5 @@ async function fetchDelete(imageId) {
 }
 
 //----------------------------------------------------
-// RQT FETCH POST AVEC LES DONNEES DU FORMULAIRE DU SWAGGER
+// //-Envoyer le formulaire et les données via le fetch avec la méthode POST
 //--------------------------------------------------------
