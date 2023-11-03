@@ -540,3 +540,8 @@ select {
   display: flex;
   justify-content: center;
 }
+.preview-image {
+  max-width: 100%;
+  max-height: 300px;
+  margin-top: 10px;
+}

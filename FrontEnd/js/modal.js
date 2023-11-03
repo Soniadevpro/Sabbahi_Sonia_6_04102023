@@ -11,6 +11,7 @@ const openModal = function (e) {
     target.style.display = null;
     target.removeAttribute("aria-hidden");
     target.setAttribute("aria-modal", "true");
+
     if (modal) {
       closeModal(e);
     }

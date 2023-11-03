@@ -114,10 +114,72 @@ function showModalWorks(works) {
     showInModal.appendChild(img);
   }
 }
-
+//------------Fonction qui va faire se supprimer les works au click de la poubelle
+//------------------------------------------------------------------------------------
 function removeImage(imageId) {
   const imageToRemove = document.querySelector(`.figure-modal[id="${imageId}"]`);
   if (imageToRemove) {
     imageToRemove.remove();
   }
 }
+
+async function populateCategorySelect() {
+  // Récupérez les données des catégories depuis l'API avec fetchCateg
+  try {
+    const categories = await fetchCateg(); // Assurez-vous que fetchCateg renvoie les données des catégories correctement
+    const select = document.getElementById("cat_select");
+
+    // Pour chaque catégorie, créez une option et ajoutez-la au select
+    categories.forEach((category) => {
+      const option = document.createElement("option");
+      option.value = category.id; // La valeur de l'option, vous pouvez utiliser l'ID de la catégorie
+      option.textContent = category.name; // Le texte affiché dans l'option, vous pouvez utiliser le nom de la catégorie
+      select.appendChild(option);
+    });
+  } catch (error) {
+    console.error("Erreur lors de la récupération des catégories :", error);
+  }
+}
+
+// Appelez cette fonction pour remplir le select avec les catégories
+populateCategorySelect();
+
+//---------------- affichage image modal
+
+const imageInput = document.getElementById("addPic");
+const imagePreview = document.getElementById("imagePreview");
+
+imageInput.addEventListener("change", (event) => {
+  const file = event.target.files[0];
+
+  if (file) {
+    // Affichez la prévisualisation de l'image
+    showImagePreview(file);
+  } else {
+    // Effacez la prévisualisation si aucun fichier n'est sélectionné
+    clearImagePreview();
+  }
+});
+
+function showImagePreview(file) {
+  // Créez un élément image pour afficher la prévisualisation
+  const imgElement = document.createElement("img");
+  imgElement.setAttribute("class", "preview-image");
+
+  // Utilisez l'objet URL pour créer une URL temporaire pour le fichier image
+  const imageURL = URL.createObjectURL(file);
+  imgElement.src = imageURL;
+
+  // Ajoutez l'image à la div de prévisualisation
+  imagePreview.innerHTML = "";
+  imagePreview.appendChild(imgElement);
+
+  // Vous pouvez également ajouter du CSS pour définir la taille de la prévisualisation, etc.
+}
+
+function clearImagePreview() {
+  // Effacez la prévisualisation en supprimant l'enfant de la div
+  imagePreview.innerHTML = "";
+}
+
+//-----------VALIDATION CHAMPS DE FORMUILAIRE

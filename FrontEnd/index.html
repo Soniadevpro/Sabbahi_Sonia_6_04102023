@@ -76,23 +76,24 @@
               <i class="fa-solid fa-xmark js-modal-close"></i>
 
               <h1 id="titlemodal">Ajout photo</h1>
-              <div class="background">
+              <form id="imgpreview">
+                <div id="imagePreview"></div>
                 <i class="fa-regular fa-image" style="color: #cbd6dc"></i>
-                <label for="modaladdpic" class="modaladdpic">+ Ajouter une photo</label>
-                <input type="file" id="modaladdpic" style="display: none" />
-              </div>
-              <div class="inputmodal">
+                <input type="file" id="addPic" accept="image/*" />
+              </form>
+              <form class="inputmodal">
                 <label for="name">Titre</label>
                 <input type="text" name="title" id="title" autocomplete="title" />
-                <label for="categories">Catégories</label>
-                <select name="categorie_sel" id="categorie_sel">
+                <label for="categorie">Catégories</label>
+                <select name="cat_select" id="cat_select"></select>
+              </form>
+              <!-- <select name="categorie_sel" id="categorie_sel">
                   <option value="" class="option_categ" label="Sélectionner une catégorie"></option>
                   <option value="1">Objets</option>
                   <option value="2">Appartements</option>
                   <option value="3">Hôtels & restaurants</option>
-                </select>
-                <form action="#" class="form_valid" method="post"><input type="submit" id="valid" value="Valider" /></form>
-              </div>
+              </select>  -->
+              <form action="#" class="form_valid" method="post"><input type="submit" id="valid" value="Valider" /></form>
             </div>
           </aside>
         </div>
