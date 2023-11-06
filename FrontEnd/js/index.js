@@ -5,6 +5,13 @@
 
 async function init() {
   const categories = await fetchCateg();
+  const select = document.getElementById("cat_select");
+  categories.forEach((category) => {
+    const option = document.createElement("option");
+    option.value = category.id;
+    option.textContent = category.name;
+    select.appendChild(option);
+  });
   const works = await fetchWorks();
 
   showCategories(categories, works);
@@ -122,7 +129,41 @@ function removeImage(imageId) {
     imageToRemove.remove();
   }
 }
+// Ajoutez cet event listener à votre input de type file
+document.getElementById("addPic").addEventListener("change", function (event) {
+  const [file] = event.target.files;
+  if (file) {
+    const imagePreview = document.querySelector(".imagePreview");
+    imagePreview.style.backgroundImage = `url(${URL.createObjectURL(file)})`;
+    imagePreview.style.backgroundSize = "cover";
+    imagePreview.style.backgroundPosition = "center";
+  }
+});
 
+// Pour vérifier le formulaire et envoyer les données
+document.getElementById("form_valid").addEventListener("submit", async function (event) {
+  event.preventDefault();
+  const title = document.getElementById("title").value;
+  const catSelect = document.getElementById("cat_select").value;
+  const addPic = document.getElementById("addPic").files[0];
+
+  if (!title || !catSelect || !addPic) {
+    // Gérer l'état invalide du formulaire ici
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("title", title);
+  formData.append("category", catSelect);
+  formData.append("image", addPic);
+
+  const newWork = await postNewWork(formData);
+  if (newWork) {
+    init(); // pour actualiser la liste des works
+    closeModal(); // fonction à définir pour fermer la modal
+    event.target.reset(); // pour vider le formulaire
+  }
+});
 //------DERNIERE PARTIE DU CODE AVANT RDV MENTOR---------------
 //----------------------------------------------------------------
 
@@ -132,76 +173,76 @@ function removeImage(imageId) {
 //--------------------------------------------------------------------------------
 
 // Fonction pour gérer l'ajout de projet
-function handleAddProject() {
-  const form = document.getElementById("imgpreview");
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+// function handleAddProject() {
+//   const form = document.getElementById("imgpreview");
+//   form.addEventListener("submit", async (e) => {
+//     e.preventDefault();
 
-    const title = document.getElementById("title").value;
-    const catId = document.getElementById("cat_select").value;
-    const image = document.getElementById("addPic").files[0];
+//     const title = document.getElementById("title").value;
+//     const catId = document.getElementById("cat_select").value;
+//     const image = document.getElementById("addPic").files[0];
 
-    if (!title || !catId || !image) {
-      alert("Veuillez remplir tous les champs.");
-      return;
-    }
+//     if (!title || !catId || !image) {
+//       alert("Veuillez remplir tous les champs.");
+//       return;
+//     }
 
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("categoryId", catId);
-    formData.append("image", image);
+//     const formData = new FormData();
+//     formData.append("title", title);
+//     formData.append("categoryId", catId);
+//     formData.append("image", image);
 
-    const token = localStorage.getItem("authToken");
+//     const token = localStorage.getItem("authToken");
 
-    try {
-      const response = await fetch("http://localhost:5678/api/works", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
+//     try {
+//       const response = await fetch("http://localhost:5678/api/works", {
+//         method: "POST",
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//         },
+//         body: formData,
+//       });
 
-      if (response.ok) {
-        alert("Projet ajouté avec succès.");
-        closeModal();
-        form.reset();
-        init(); // Actualiser les projets
-      } else {
-        alert("Une erreur s'est produite lors de l'ajout du projet.");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  });
-}
+//       if (response.ok) {
+//         alert("Projet ajouté avec succès.");
+//         closeModal();
+//         form.reset();
+//         init(); // Actualiser les projets
+//       } else {
+//         alert("Une erreur s'est produite lors de l'ajout du projet.");
+//       }
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   });
+// }
 
-// Fonction pour gérer la prévisualisation de l'image
-function handleImagePreview() {
-  const addPicInput = document.getElementById("addPic");
-  const imagePreview = document.querySelector(".imagePreview");
+// // Fonction pour gérer la prévisualisation de l'image
+// function handleImagePreview() {
+//   const addPicInput = document.getElementById("addPic");
+//   const imagePreview = document.querySelector(".imagePreview");
 
-  addPicInput.addEventListener("change", (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview" />`;
-      };
-      reader.readAsDataURL(file);
-    }
-  });
-}
+//   addPicInput.addEventListener("change", (e) => {
+//     const file = e.target.files[0];
+//     if (file) {
+//       const reader = new FileReader();
+//       reader.onload = (e) => {
+//         imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview" />`;
+//       };
+//       reader.readAsDataURL(file);
+//     }
+//   });
+// }
 
-// Fonction pour charger les catégories dans le formulaire
-async function loadCategories() {
-  const catSelect = document.getElementById("cat_select");
-  const categories = await fetchCateg();
+// // Fonction pour charger les catégories dans le formulaire
+// async function loadCategories() {
+//   const catSelect = document.getElementById("cat_select");
+//   const categories = await fetchCateg();
 
-  catSelect.innerHTML = categories.map((cat) => `<option value="${cat.id}">${cat.name}</option>`).join("");
-}
+//   catSelect.innerHTML = categories.map((cat) => `<option value="${cat.id}">${cat.name}</option>`).join("");
+// }
 
-// Appeler les fonctions pour gérer le formulaire d'ajout
-handleAddProject();
-handleImagePreview();
-loadCategories();
+// // Appeler les fonctions pour gérer le formulaire d'ajout
+// handleAddProject();
+// handleImagePreview();
+// loadCategories();
