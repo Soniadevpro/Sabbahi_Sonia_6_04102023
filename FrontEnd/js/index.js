@@ -122,7 +122,8 @@ function removeImage(imageId) {
     imageToRemove.remove();
   }
 }
-
+//---------------------Créer Select et option--------
+//----------------------------------------------------------------
 async function populateCategorySelect() {
   // Récupérez les données des catégories depuis l'API avec fetchCateg
   try {
@@ -144,7 +145,8 @@ async function populateCategorySelect() {
 // Appelez cette fonction pour remplir le select avec les catégories
 populateCategorySelect();
 
-//---------------- affichage image modal
+//---------------- Preview image modal---------------
+//---------------------------------------------------
 
 const imageInput = document.getElementById("addPic");
 const imagePreview = document.getElementById("imagePreview");
@@ -184,6 +186,7 @@ function clearImagePreview() {
 
 //-----------VALIDATION CHAMPS DE FORMUILAIRE
 //---------------------------------------------
+
 function validateForm() {
   const titleInput = document.getElementById("title");
   const imageInput = document.getElementById("addPic");
@@ -214,28 +217,32 @@ myForm.addEventListener("submit", async (event) => {
   const formData = new FormData(myForm);
 
   // Ajoutez le token d'authentification (si nécessaire)
-  const token = localStorage.getItem("authToken");
-  if (token) {
-    formData.append("Authorization", `Bearer ${token}`);
+  const tokenValid = localStorage.getItem("validToken");
+  if (tokenValid) {
+    formData.append("Authorization", `Bearer ${tokenValid}`);
   }
+
+  // Envoyer le formulaire
+  handleSubmitForm(formData, tokenValid);
 });
 
-//-Envoyer le formulaire et les données via le fetch avec la méthode POST
-
-async function handleSubmitForm(formData) {
+async function handleSubmitForm(formData, tokenValid) {
   // Utilisez le code de la requête fetch ici
   const response = await fetch("http://localhost:5678/api/works", {
     method: "POST",
     body: formData,
     headers: {
       // Vous pouvez ajouter des en-têtes personnalisés ici
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${tokenValid}`,
     },
   });
 
   if (response.ok) {
+    // Traitement de la réponse réussie (par exemple, afficher un message de succès)
+    console.log("Formulaire envoyé avec succès !");
   } else {
     alert("Une erreur s'est produite lors de l'envoi du formulaire.");
+    console.log(response.statusText); // Afficher le message d'erreur de la réponse
   }
 }
 
