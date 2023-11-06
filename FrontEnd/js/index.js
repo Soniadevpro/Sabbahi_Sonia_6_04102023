@@ -128,62 +128,80 @@ function removeImage(imageId) {
 
 //---------------------Créer Select et option--------
 //----------------------------------------------------------------
-async function populateCategorySelect() {
-  // Récupérez les données des catégories depuis l'API avec fetchCateg
-  try {
-    const categories = await fetchCateg(); // Assurez-vous que fetchCateg renvoie les données des catégories correctement
-    const select = document.getElementById("cat_select");
 
-    // Pour chaque catégorie, créez une option et ajoutez-la au select
-    categories.forEach((category) => {
-      const option = document.createElement("option");
-      option.value = category.id; // La valeur de l'option, vous pouvez utiliser l'ID de la catégorie
-      option.textContent = category.name; // Le texte affiché dans l'option, vous pouvez utiliser le nom de la catégorie
-      select.appendChild(option);
-    });
-  } catch (error) {
-    console.error("Erreur lors de la récupération des catégories :", error);
-  }
+//--------------------------------------------------------------------------------
+
+// Fonction pour gérer l'ajout de projet
+function handleAddProject() {
+  const form = document.getElementById("imgpreview");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const title = document.getElementById("title").value;
+    const catId = document.getElementById("cat_select").value;
+    const image = document.getElementById("addPic").files[0];
+
+    if (!title || !catId || !image) {
+      alert("Veuillez remplir tous les champs.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("categoryId", catId);
+    formData.append("image", image);
+
+    const token = localStorage.getItem("authToken");
+
+    try {
+      const response = await fetch("http://localhost:5678/api/works", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      if (response.ok) {
+        alert("Projet ajouté avec succès.");
+        closeModal();
+        form.reset();
+        init(); // Actualiser les projets
+      } else {
+        alert("Une erreur s'est produite lors de l'ajout du projet.");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  });
 }
 
-// Appelez cette fonction pour remplir le select avec les catégories
-populateCategorySelect();
+// Fonction pour gérer la prévisualisation de l'image
+function handleImagePreview() {
+  const addPicInput = document.getElementById("addPic");
+  const imagePreview = document.querySelector(".imagePreview");
 
-//---------------- Preview image modal---------------
-//---------------------------------------------------
-
-const imageInput = document.getElementById("addPic");
-const imagePreview = document.getElementById("imagePreview");
-
-imageInput.addEventListener("change", (event) => {
-  const file = event.target.files[0];
-
-  if (file) {
-    // Affichez la prévisualisation de l'image
-    showImagePreview(file);
-  } else {
-    // Effacez la prévisualisation si aucun fichier n'est sélectionné
-    clearImagePreview();
-  }
-});
-
-function showImagePreview(file) {
-  // Créez un élément image pour afficher la prévisualisation
-  const imgElement = document.createElement("img");
-  imgElement.setAttribute("class", "preview-image");
-
-  // Utilisez l'objet URL pour créer une URL temporaire pour le fichier image
-  const imageURL = URL.createObjectURL(file);
-  imgElement.src = imageURL;
-
-  // Ajoutez l'image à la div de prévisualisation
-  imagePreview.innerHTML = "";
-  imagePreview.appendChild(imgElement);
-
-  // Vous pouvez également ajouter du CSS pour définir la taille de la prévisualisation, etc.
+  addPicInput.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview" />`;
+      };
+      reader.readAsDataURL(file);
+    }
+  });
 }
 
-function clearImagePreview() {
-  // Effacez la prévisualisation en supprimant l'enfant de la div
-  imagePreview.innerHTML = "";
+// Fonction pour charger les catégories dans le formulaire
+async function loadCategories() {
+  const catSelect = document.getElementById("cat_select");
+  const categories = await fetchCateg();
+
+  catSelect.innerHTML = categories.map((cat) => `<option value="${cat.id}">${cat.name}</option>`).join("");
 }
+
+// Appeler les fonctions pour gérer le formulaire d'ajout
+handleAddProject();
+handleImagePreview();
+loadCategories();
