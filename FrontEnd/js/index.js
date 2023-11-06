@@ -122,6 +122,10 @@ function removeImage(imageId) {
     imageToRemove.remove();
   }
 }
+
+//------DERNIERE PARTIE DU CODE AVANT RDV MENTOR---------------
+//----------------------------------------------------------------
+
 //---------------------Créer Select et option--------
 //----------------------------------------------------------------
 async function populateCategorySelect() {
@@ -157,22 +161,6 @@ imageInput.addEventListener("change", (event) => {
   if (file) {
     // Affichez la prévisualisation de l'image
     showImagePreview(file);
-
-    // Mettez à jour le champ du titre avec le nom du fichier (image)
-    const titleInput = document.getElementById("title");
-    titleInput.value = file.name;
-
-    // Sélectionnez la catégorie correspondante en utilisant getCategoryFromFileName
-    const selectedCategory = getCategoryFromFileName(file.name);
-
-    // Si la catégorie est trouvée, mettez à jour la sélection du menu déroulant
-    if (selectedCategory) {
-      const categorySelect = document.getElementById("cat_select");
-      categorySelect.value = selectedCategory.id; // Sélectionnez la catégorie par sa valeur
-    } else {
-      // Si la catégorie n'est pas trouvée, vous pouvez réinitialiser la sélection ou effectuer d'autres actions.
-      console.log("Catégorie non trouvée pour le fichier : " + file.name);
-    }
   } else {
     // Effacez la prévisualisation si aucun fichier n'est sélectionné
     clearImagePreview();
@@ -198,71 +186,4 @@ function showImagePreview(file) {
 function clearImagePreview() {
   // Effacez la prévisualisation en supprimant l'enfant de la div
   imagePreview.innerHTML = "";
-}
-
-//-----------VALIDATION CHAMPS DE FORMUILAIRE
-//---------------------------------------------
-
-function validateForm() {
-  const titleInput = document.getElementById("title");
-  const imageInput = document.getElementById("addPic");
-
-  if (titleInput.value.trim() === "") {
-    alert("Le champ titre ne peut pas être vide.");
-    return false; // Arrêtez l'envoi du formulaire
-  }
-
-  if (imageInput.files.length === 0) {
-    alert("Sélectionnez une image.");
-    return false; // Arrêtez l'envoi du formulaire
-  }
-
-  return true; // Permettez l'envoi du formulaire si la validation réussit
-}
-
-//----------- FORMDATA  POUR ENVOYER LES DONNEES
-//-----------------------------------------------------
-
-const myForm = document.getElementById("form_valid");
-myForm.addEventListener("submit", async (event) => {
-  event.preventDefault(); // Empêchez l'envoi par défaut du formulaire
-  if (!validateForm()) {
-    return; // Arrêtez l'envoi du formulaire si la validation échoue
-  }
-
-  const formData = new FormData(myForm);
-
-  // Ajoutez le token d'authentification (si nécessaire)
-  const tokenValid = localStorage.getItem("validToken");
-  if (tokenValid) {
-    formData.append("Authorization", `Bearer ${tokenValid}`);
-  }
-
-  // Envoyer le formulaire
-  handleSubmitForm(formData, tokenValid);
-});
-
-async function handleSubmitForm(formData, tokenValid) {
-  // ... (votre code pour envoyer le formulaire)
-
-  if (response.ok) {
-    // Traitement de la réponse réussie (par exemple, afficher un message de succès)
-    console.log("Formulaire envoyé avec succès !");
-    closeModal(); // Fermer la modal
-    clearForm(); // Vider le formulaire
-    refreshWorks(); // Actualiser les works
-  } else {
-    alert("Une erreur s'est produite lors de l'envoi du formulaire.");
-    console.log(response.statusText); // Afficher le message d'erreur de la réponse
-  }
-}
-
-async function refreshWorks() {
-  const works = await fetchWorks();
-  showWorks(works);
-}
-function clearForm() {
-  document.getElementById("title").value = ""; // Réinitialise le champ titre
-  document.getElementById("addPic").value = ""; // Réinitialise le champ d'ajout d'image
-  document.getElementById("cat_select").selectedIndex = 0; // Réinitialise la sélection de catégorie
 }
