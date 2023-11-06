@@ -157,6 +157,22 @@ imageInput.addEventListener("change", (event) => {
   if (file) {
     // Affichez la prévisualisation de l'image
     showImagePreview(file);
+
+    // Mettez à jour le champ du titre avec le nom du fichier (image)
+    const titleInput = document.getElementById("title");
+    titleInput.value = file.name;
+
+    // Sélectionnez la catégorie correspondante en utilisant getCategoryFromFileName
+    const selectedCategory = getCategoryFromFileName(file.name);
+
+    // Si la catégorie est trouvée, mettez à jour la sélection du menu déroulant
+    if (selectedCategory) {
+      const categorySelect = document.getElementById("cat_select");
+      categorySelect.value = selectedCategory.id; // Sélectionnez la catégorie par sa valeur
+    } else {
+      // Si la catégorie n'est pas trouvée, vous pouvez réinitialiser la sélection ou effectuer d'autres actions.
+      console.log("Catégorie non trouvée pour le fichier : " + file.name);
+    }
   } else {
     // Effacez la prévisualisation si aucun fichier n'est sélectionné
     clearImagePreview();
@@ -227,35 +243,26 @@ myForm.addEventListener("submit", async (event) => {
 });
 
 async function handleSubmitForm(formData, tokenValid) {
-  // Utilisez le code de la requête fetch ici
-  const response = await fetch("http://localhost:5678/api/works", {
-    method: "POST",
-    body: formData,
-    headers: {
-      // Vous pouvez ajouter des en-têtes personnalisés ici
-      Authorization: `Bearer ${tokenValid}`,
-    },
-  });
+  // ... (votre code pour envoyer le formulaire)
 
   if (response.ok) {
     // Traitement de la réponse réussie (par exemple, afficher un message de succès)
     console.log("Formulaire envoyé avec succès !");
+    closeModal(); // Fermer la modal
+    clearForm(); // Vider le formulaire
+    refreshWorks(); // Actualiser les works
   } else {
     alert("Une erreur s'est produite lors de l'envoi du formulaire.");
     console.log(response.statusText); // Afficher le message d'erreur de la réponse
   }
 }
 
-// Assurez-vous que le formulaire a un ID dans le HTML
-// Utilisation de document.querySelector pour sélectionner le formulaire
-// const form = document.querySelector("form");
-
-// form.addEventListener("submit", async (e) => {
-//   e.preventDefault(); // Empêche la soumission du formulaire par défaut
-
-//   // Récupérez les données du formulaire, par exemple, formData
-//   const formData = new FormData(form);
-
-//   // Appelez la fonction pour gérer la soumission du formulaire
-//   await handleSubmitForm(formData);
-// });
+async function refreshWorks() {
+  const works = await fetchWorks();
+  showWorks(works);
+}
+function clearForm() {
+  document.getElementById("title").value = ""; // Réinitialise le champ titre
+  document.getElementById("addPic").value = ""; // Réinitialise le champ d'ajout d'image
+  document.getElementById("cat_select").selectedIndex = 0; // Réinitialise la sélection de catégorie
+}
