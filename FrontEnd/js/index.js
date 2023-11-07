@@ -13,19 +13,26 @@ async function init() {
   showWorks(works);
   showModalWorks(works);
   fillCategoryDropdown();
-  document.getElementById("form_valid").addEventListener("submit", validateForm);
   // autrefontuon()
 }
 
 init();
-document.getElementById("addPic").addEventListener("change", function (event) {
-  const [file] = event.target.files;
-  const imagePreview = document.querySelector(".imagePreview");
 
-  if (file) {
-    imagePreview.style.backgroundImage = `url(${URL.createObjectURL(file)})`;
+async function fillCategoryDropdown() {
+  try {
+    const categories = await fetchCateg();
+    const catSelect = document.getElementById("cat_select");
+
+    categories.forEach((categorie) => {
+      let option = document.createElement("option");
+      option.value = categorie.id;
+      option.textContent = categorie.name;
+      catSelect.appendChild(option);
+    });
+  } catch (error) {
+    console.error("Erreur lors du chargement des catégories", error);
   }
-});
+}
 function showCategories(categories, works) {
   const filterShow = document.querySelector(".filterbar");
 
@@ -134,34 +141,74 @@ function removeImage(imageId) {
 
 //------DERNIERE PARTIE DU CODE AVANT RDV MENTOR---------------
 //----------------------------------------------------------------
+// FONCTION QUI CREER MES OPTIONS APPELE DANS INIT
+//------------------------------------
 
-// Ajouté à la fin du fichier index.js
-async function fillCategoryDropdown() {
-  try {
-    const categories = await fetchCateg();
-    const catSelect = document.getElementById("cat_select");
+const addPic = document.getElementById("addPic");
+const titlePic = document.getElementById("title");
+const selectInput = document.getElementById("cat_select");
+const selectedImage = document.querySelector(".selected-img");
+const invalidFormMessage = document.querySelector(".invalid-form-message");
+const validFormMessage = document.querySelector(".valid-form-message");
+const invalidRequestFormMessage = document.querySelector(".invalid-request-form-message");
+const submitWorkButton = document.querySelector(".modal_add-work_confirm-btn");
+//------PREVIEW DES IMAGES-----
+//-----------------------------
 
-    categories.forEach((categorie) => {
-      let option = document.createElement("option");
-      option.value = categorie.id;
-      option.textContent = categorie.name;
-      catSelect.appendChild(option);
+addPic.addEventListener("change", () => {
+  const file = addPic.files[0];
+  const reader = new FileReader();
+
+  reader.onload = (e) => {
+    selectedImage.src = e.target.result;
+    const addImgForm = document.querySelector(".imagePreview");
+    const formElements = addImgForm.querySelectorAll(".imagePreview > *");
+
+    formElements.forEach((element) => {
+      element.style.display = "none";
     });
-  } catch (error) {
-    console.error("Erreur lors du chargement des catégories", error);
-  }
+    selectedImage.style.display = "flex";
+  };
+  reader.readAsDataURL(file);
+});
+
+//--- CREA DES WORKS
+//------------------------
+function createNewWork() {
+  submitWorkButton.addEventListener("click", () => {
+    if (addPic.value === "" || titlePic.value === "" || selectInput.value === "") {
+      invalidFormMessage.style.display = "block";
+      return;
+    }
+
+    let formData = new FormData();
+
+    formData.append("addPic", addPic.files[0]);
+    formData.append("title", titlePic.value);
+    formData.append("cat_select", selectInput.value);
+
+    let addRequest = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    };
+
+    fetch("http://localhost:5678/api/works", addRequest).then((res) => {
+      if (res.ok) {
+        invalidFormMessage.style.display = "none";
+        validFormMessage.style.display = "block";
+        submitWorkButton.classList.add("active");
+      } else {
+        invalidFormMessage.style.display = "none";
+        invalidRequestFormMessage.style.display = "block";
+      }
+    });
+  });
 }
 
-function validateForm(event) {
-  event.preventDefault();
-  const title = document.getElementById("title").value.trim();
-  const catSelect = document.getElementById("cat_select").value;
+createNewWork();
+//--------- FONCTION QUI VALIDE LE FORMULAIRE ENVOIS LA REQUETE
 
-  if (!title || catSelect === "") {
-    document.querySelector(".invalid-form-message").style.display = "block";
-    return;
-  }
-
-  submitFormWithData(); // Vous pouvez maintenant appeler cette fonction en toute sécurité.
-}
 // Ajoutez cette fonction dans index.js

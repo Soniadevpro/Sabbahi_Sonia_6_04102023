@@ -77,7 +77,7 @@
 
               <h1 id="titlemodal">Ajout photo</h1>
               <form id="form_valid" action="#" method="post">
-                <div class="imagePreview"><i class="fa-regular fa-image" style="color: #cbd6dc"></i></div>
+                <div class="imagePreview"><i class="fa-regular fa-image" style="color: #cbd6dc"></i><img src="" class="selected-img" /></div>
                 <input type="file" id="addPic" accept="image/*" />
                 <div class="inputmodal">
                   <label for="title">Titre</label>
@@ -85,10 +85,12 @@
                   <label for="cat_select">Catégories</label>
                   <select name="cat_selected" id="cat_select"></select>
                 </div>
-                <p class="invalid-form-message">Veuillez remplir tous les champs pour ajouter un projet</p>
-                <!-- Autres messages ici -->
-                <input type="submit" id="valid" value="Valider" />
               </form>
+              <p class="invalid-form-message">Veuillez remplir tous les champs pour ajouter un projet</p>
+              <p class="valid-form-message">Formulaire enregistré !</p>
+              <p class="invalid-request-form-message">Une erreur s'est produite lors de la soumission du formulaire</p>
+              <span class="modal_line"></span>
+              <button class="modal_add-work_confirm-btn">Valider</button>
             </div>
           </aside>
         </div>

@@ -53,38 +53,3 @@ async function fetchDelete(imageId) {
 }
 //-------- Fetch POST Works
 //-----------------------------
-
-async function submitFormWithData() {
-  const formData = new FormData(document.getElementById("form_valid"));
-  for (let [key, value] of formData.entries()) {
-    console.log(key, value);
-  }
-  const token = localStorage.getItem("authToken");
-  // Vérifiez que le token est bien récupéré
-  console.log("Authorization Token:", token);
-
-  try {
-    const response = await fetch("http://localhost:5678/api/works", {
-      method: "POST",
-      body: formData,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error("Erreur lors de l’envoi du formulaire");
-    }
-
-    // Actualisez les works ici avec les nouvelles données
-    const updatedWorks = await fetchWorks();
-    showWorks(updatedWorks);
-    showModalWorks(updatedWorks);
-
-    // Fermez la modal et réinitialisez le formulaire
-    closeModal(); // Assurez-vous que cette fonction existe et est correcte
-    document.getElementById("form_valid").reset();
-  } catch (error) {
-    console.error(error);
-  }
-}
