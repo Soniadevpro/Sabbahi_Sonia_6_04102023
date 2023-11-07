@@ -16,6 +16,6 @@ if (token) {
 
   changeLog.addEventListener("click", () => {
     localStorage.removeItem("authToken");
-    window.location.href = "/login.html";
+    window.location.href = "./login.html";
   });
 }

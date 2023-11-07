@@ -12,12 +12,20 @@ async function init() {
   console.log(categories, works);
   showWorks(works);
   showModalWorks(works);
-  displayAddWorkModal(categories);
+  fillCategoryDropdown();
+  document.getElementById("form_valid").addEventListener("submit", validateForm);
   // autrefontuon()
 }
 
 init();
+document.getElementById("addPic").addEventListener("change", function (event) {
+  const [file] = event.target.files;
+  const imagePreview = document.querySelector(".imagePreview");
 
+  if (file) {
+    imagePreview.style.backgroundImage = `url(${URL.createObjectURL(file)})`;
+  }
+});
 function showCategories(categories, works) {
   const filterShow = document.querySelector(".filterbar");
 
@@ -124,7 +132,36 @@ function removeImage(imageId) {
   }
 }
 
-// Ajoutez cet event listener à votre input de type file
-
 //------DERNIERE PARTIE DU CODE AVANT RDV MENTOR---------------
 //----------------------------------------------------------------
+
+// Ajouté à la fin du fichier index.js
+async function fillCategoryDropdown() {
+  try {
+    const categories = await fetchCateg();
+    const catSelect = document.getElementById("cat_select");
+
+    categories.forEach((categorie) => {
+      let option = document.createElement("option");
+      option.value = categorie.id;
+      option.textContent = categorie.name;
+      catSelect.appendChild(option);
+    });
+  } catch (error) {
+    console.error("Erreur lors du chargement des catégories", error);
+  }
+}
+
+function validateForm(event) {
+  event.preventDefault();
+  const title = document.getElementById("title").value.trim();
+  const catSelect = document.getElementById("cat_select").value;
+
+  if (!title || catSelect === "") {
+    document.querySelector(".invalid-form-message").style.display = "block";
+    return;
+  }
+
+  submitFormWithData(); // Vous pouvez maintenant appeler cette fonction en toute sécurité.
+}
+// Ajoutez cette fonction dans index.js

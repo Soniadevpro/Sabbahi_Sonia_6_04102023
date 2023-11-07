@@ -1,4 +1,6 @@
-// fonction asynchrone pour récupérer les catégories
+// ---------FETCH GET CATEGORIES----------------
+//-----------------------------------------------
+
 async function fetchCateg() {
   // Effectuer une requête HTTP asynchrone vers l'URL spécifiée
   const requete = await fetch("http://localhost:5678/api/categories");
@@ -13,6 +15,8 @@ async function fetchCateg() {
     throw new Error("Impossible de contacter le serveur");
   }
 }
+//------------FETCH GET WORKS----------------
+//-------------------------------------------
 
 async function fetchWorks() {
   const requete2 = await fetch("http://localhost:5678/api/works");
@@ -26,7 +30,8 @@ async function fetchWorks() {
   }
 }
 
-//-- fetch delete
+//---------------- Fetch DELETE--------
+//------------------------------------
 async function fetchDelete(imageId) {
   const token = localStorage.getItem("authToken");
   try {
@@ -46,27 +51,40 @@ async function fetchDelete(imageId) {
     console.log(error);
   }
 }
+//-------- Fetch POST Works
+//-----------------------------
 
-//----------------------------------------------------
-// //-Envoyer le formulaire et les données via le fetch avec la méthode POST
-//--------------------------------------------------------
+async function submitFormWithData() {
+  const formData = new FormData(document.getElementById("form_valid"));
+  for (let [key, value] of formData.entries()) {
+    console.log(key, value);
+  }
+  const token = localStorage.getItem("authToken");
+  // Vérifiez que le token est bien récupéré
+  console.log("Authorization Token:", token);
 
-// Dans callAPI.js
+  try {
+    const response = await fetch("http://localhost:5678/api/works", {
+      method: "POST",
+      body: formData,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-// Ajoutez cette fonction pour faire le POST du nouveau projet
-// async function postNewWork(formData) {
-//   const token = localStorage.getItem("authToken");
-//   try {
-//     const response = await fetch(`http://localhost:5678/api/works`, {
-//       method: "POST",
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//       body: formData,
-//     });
-//     if (!response.ok) throw new Error("Erreur lors de l'ajout du projet");
-//     return await response.json();
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
+    if (!response.ok) {
+      throw new Error("Erreur lors de l’envoi du formulaire");
+    }
+
+    // Actualisez les works ici avec les nouvelles données
+    const updatedWorks = await fetchWorks();
+    showWorks(updatedWorks);
+    showModalWorks(updatedWorks);
+
+    // Fermez la modal et réinitialisez le formulaire
+    closeModal(); // Assurez-vous que cette fonction existe et est correcte
+    document.getElementById("form_valid").reset();
+  } catch (error) {
+    console.error(error);
+  }
+}
