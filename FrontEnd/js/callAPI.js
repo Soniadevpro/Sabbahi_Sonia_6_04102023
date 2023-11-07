@@ -54,19 +54,19 @@ async function fetchDelete(imageId) {
 // Dans callAPI.js
 
 // Ajoutez cette fonction pour faire le POST du nouveau projet
-async function postNewWork(formData) {
-  const token = localStorage.getItem("authToken");
-  try {
-    const response = await fetch(`http://localhost:5678/api/works`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: formData,
-    });
-    if (!response.ok) throw new Error("Erreur lors de l'ajout du projet");
-    return await response.json();
-  } catch (error) {
-    console.error(error);
-  }
-}
+// async function postNewWork(formData) {
+//   const token = localStorage.getItem("authToken");
+//   try {
+//     const response = await fetch(`http://localhost:5678/api/works`, {
+//       method: "POST",
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//       body: formData,
+//     });
+//     if (!response.ok) throw new Error("Erreur lors de l'ajout du projet");
+//     return await response.json();
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
