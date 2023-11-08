@@ -76,21 +76,21 @@
               <i class="fa-solid fa-xmark js-modal-close"></i>
 
               <h1 id="titlemodal">Ajout photo</h1>
-              <form id="form_valid" action="#" method="post">
+              <form method="post" id="form_valid">
                 <div class="imagePreview"><i class="fa-regular fa-image" style="color: #cbd6dc"></i><img src="" class="selected-img" /></div>
-                <input type="file" id="addPic" accept="image/*" />
+                <input type="file" id="addPic" name=" addPic" placeholder="Image URL" required />
                 <div class="inputmodal">
                   <label for="title">Titre</label>
-                  <input name="title" id="title" autocomplete="title" />
+                  <input type="text" id="title" name="title" required />
                   <label for="cat_select">Catégories</label>
-                  <select name="cat_selected" id="cat_select"></select>
+                  <select name="cat_select" id="cat_select" required></select>
                 </div>
               </form>
-              <p class="invalid-form-message">Veuillez remplir tous les champs pour ajouter un projet</p>
+              <!-- <p class="invalid-form-message">Veuillez remplir tous les champs pour ajouter un projet</p>
               <p class="valid-form-message">Formulaire enregistré !</p>
-              <p class="invalid-request-form-message">Une erreur s'est produite lors de la soumission du formulaire</p>
-              <span class="modal_line"></span>
-              <button class="modal_add-work_confirm-btn">Valider</button>
+              <p class="invalid-request-form-message">Une erreur s'est produite lors de la soumission du formulaire</p> -->
+              <span class="erreur"></span>
+              <button type="submit" class="submit_form" id="submit_form_js">Valider</button>
             </div>
           </aside>
         </div>

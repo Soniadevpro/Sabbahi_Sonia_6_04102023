@@ -5,34 +5,15 @@
 
 async function init() {
   const categories = await fetchCateg();
-
   const works = await fetchWorks();
-
-  showCategories(categories, works);
-  console.log(categories, works);
+  showCategories(categories);
   showWorks(works);
-  showModalWorks(works);
-  fillCategoryDropdown();
-  // autrefontuon()
+  loadCategories();
+  console.log(works, categories);
 }
 
 init();
 
-async function fillCategoryDropdown() {
-  try {
-    const categories = await fetchCateg();
-    const catSelect = document.getElementById("cat_select");
-
-    categories.forEach((categorie) => {
-      let option = document.createElement("option");
-      option.value = categorie.id;
-      option.textContent = categorie.name;
-      catSelect.appendChild(option);
-    });
-  } catch (error) {
-    console.error("Erreur lors du chargement des catégories", error);
-  }
-}
 function showCategories(categories, works) {
   const filterShow = document.querySelector(".filterbar");
 
@@ -138,77 +119,32 @@ function removeImage(imageId) {
     imageToRemove.remove();
   }
 }
+//------- Fonction qui ajoute les categories dans select option
+//--------------------------
 
-//------DERNIERE PARTIE DU CODE AVANT RDV MENTOR---------------
-//----------------------------------------------------------------
-// FONCTION QUI CREER MES OPTIONS APPELE DANS INIT
-//------------------------------------
-
-const addPic = document.getElementById("addPic");
-const titlePic = document.getElementById("title");
-const selectInput = document.getElementById("cat_select");
-const selectedImage = document.querySelector(".selected-img");
-const invalidFormMessage = document.querySelector(".invalid-form-message");
-const validFormMessage = document.querySelector(".valid-form-message");
-const invalidRequestFormMessage = document.querySelector(".invalid-request-form-message");
-const submitWorkButton = document.querySelector(".modal_add-work_confirm-btn");
-//------PREVIEW DES IMAGES-----
-//-----------------------------
-
-addPic.addEventListener("change", () => {
-  const file = addPic.files[0];
-  const reader = new FileReader();
-
-  reader.onload = (e) => {
-    selectedImage.src = e.target.result;
-    const addImgForm = document.querySelector(".imagePreview");
-    const formElements = addImgForm.querySelectorAll(".imagePreview > *");
-
-    formElements.forEach((element) => {
-      element.style.display = "none";
+async function loadCategories() {
+  try {
+    const categories = await fetchCateg();
+    const selectElement = document.getElementById("cat_select");
+    categories.forEach((category) => {
+      const option = document.createElement("option");
+      option.value = category.id;
+      option.textContent = category.name;
+      selectElement.appendChild(option);
     });
-    selectedImage.style.display = "flex";
-  };
-  reader.readAsDataURL(file);
-});
-
-//--- CREA DES WORKS
-//------------------------
-function createNewWork() {
-  submitWorkButton.addEventListener("click", () => {
-    if (addPic.value === "" || titlePic.value === "" || selectInput.value === "") {
-      invalidFormMessage.style.display = "block";
-      return;
-    }
-
-    let formData = new FormData();
-
-    formData.append("addPic", addPic.files[0]);
-    formData.append("title", titlePic.value);
-    formData.append("cat_select", selectInput.value);
-
-    let addRequest = {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: formData,
-    };
-
-    fetch("http://localhost:5678/api/works", addRequest).then((res) => {
-      if (res.ok) {
-        invalidFormMessage.style.display = "none";
-        validFormMessage.style.display = "block";
-        submitWorkButton.classList.add("active");
-      } else {
-        invalidFormMessage.style.display = "none";
-        invalidRequestFormMessage.style.display = "block";
-      }
-    });
-  });
+  } catch (error) {
+    console.error("Erreur lors du chargement des catégories : ", error);
+  }
 }
-
-createNewWork();
-//--------- FONCTION QUI VALIDE LE FORMULAIRE ENVOIS LA REQUETE
-
-// Ajoutez cette fonction dans index.js
+//------- Ajout de la Preview de mes files ------
+//----------------------------
+document.getElementById("addPic").addEventListener("change", function (event) {
+  const [file] = event.target.files;
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      document.querySelector(".imagePreview img").src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+});

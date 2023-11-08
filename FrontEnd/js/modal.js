@@ -41,3 +41,6 @@ const stopPropagation = function (e) {
 document.querySelectorAll(".js-modal").forEach((modal) => {
   modal.addEventListener("click", openModal);
 });
+
+//------PREVIEW DES IMAGES-----
+//-----------------------------
