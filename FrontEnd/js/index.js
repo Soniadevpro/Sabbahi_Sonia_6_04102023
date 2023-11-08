@@ -8,6 +8,7 @@ async function init() {
   const works = await fetchWorks();
   showCategories(categories);
   showWorks(works);
+  showModalWorks(works);
   loadCategories();
   console.log(works, categories);
 }
@@ -166,14 +167,14 @@ document.getElementById("submit_form_js").addEventListener("click", async functi
   const catSelect = document.getElementById("cat_select");
 
   //--validation champs
-  if (!addPic.files.lenght || !title.value || !catSelect.value) {
+  if (!addPic.files.length || !title.value || !catSelect.value) {
     document.querySelector(".erreur").textContent = "Veuillez remplir tous les champs";
     return;
   }
 
-  //----prépa données du formulaire
+  //----prépa données du formulaire formData
 
-  const formData = new formData(form);
+  const formData = new FormData();
   formData.append("addPic", addPic.files[0]);
   formData.append("title", title.value);
   formData.append("cat_select", catSelect.value);
@@ -184,23 +185,22 @@ document.getElementById("submit_form_js").addEventListener("click", async functi
     const response = await fetch("http://localhost:5678/api/works", {
       method: "POST",
       headers: {
-        Authorization: `Bears${localStorage.getItem("authToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
       },
       body: formData,
     });
 
     if (response.ok) {
-      const newWork = await response.json();
-      showModalWorks([await fetchWorks(), newWork]); //----mettre à jour la modal
-
-      showWorks([await fetchWorks(), newWork]); //-----metrte à jour les works de la page
-
+      const updatedWorks = await fetchWorks();
+      showModalWorks(updatedWorks); // mettre à jour la modal
+      showWorks(updatedWorks); // mettre à jour les works de la page
       closeModal(event); //----fermer la modal
       form.reset(); //---vider le formulaire
     } else {
       throw new Error(`Echec de l'envoie du formulaire`);
     }
   } catch (error) {
+    console.error(error);
     document.querySelector(".erreur").textContent = error.message;
   }
 });

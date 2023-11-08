@@ -34,6 +34,7 @@ async function fetchWorks() {
 //------------------------------------
 async function fetchDelete(imageId) {
   const token = localStorage.getItem("authToken");
+  console.log(`Token utilisé pour la suppression : ${token}`);
   try {
     const requete3 = await fetch(`http://localhost:5678/api/works/${imageId}`, {
       method: "DELETE",
