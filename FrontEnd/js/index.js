@@ -119,9 +119,9 @@ function removeImage(imageId) {
     imageToRemove.remove();
   }
 }
-//------- Fonction qui ajoute les categories dans select option
-//--------------------------
-
+//------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
+//--- catégorie selec et option
 async function loadCategories() {
   try {
     const categories = await fetchCateg();
@@ -136,15 +136,71 @@ async function loadCategories() {
     console.error("Erreur lors du chargement des catégories : ", error);
   }
 }
-//------- Ajout de la Preview de mes files ------
-//----------------------------
+//Preview
+
 document.getElementById("addPic").addEventListener("change", function (event) {
   const [file] = event.target.files;
+  const previewContainer = document.querySelector(".imagePreview");
   if (file) {
     const reader = new FileReader();
     reader.onload = function (e) {
-      document.querySelector(".imagePreview img").src = e.target.result;
+      const img = previewContainer.querySelector("img") || new Image();
+      img.src = e.target.result;
+      img.className = "selected-img";
+
+      previewContainer.innerHTML = "";
+      previewContainer.appendChild(img);
     };
     reader.readAsDataURL(file);
+  }
+});
+
+//------ Envois du formulaire---------------
+
+document.getElementById("submit_form_js").addEventListener("click", async function (event) {
+  event.preventDefault();
+
+  const form = document.getElementById("form-valid");
+  const addPic = document.getElementById("addPic");
+  const title = document.getElementById("title");
+  const catSelect = document.getElementById("cat_select");
+
+  //--validation champs
+  if (!addPic.files.lenght || !title.value || !catSelect.value) {
+    document.querySelector(".erreur").textContent = "Veuillez remplir tous les champs";
+    return;
+  }
+
+  //----prépa données du formulaire
+
+  const formData = new formData(form);
+  formData.append("addPic", addPic.files[0]);
+  formData.append("title", title.value);
+  formData.append("cat_select", catSelect.value);
+
+  //----envoi du formulaire
+
+  try {
+    const response = await fetch("http://localhost:5678/api/works", {
+      method: "POST",
+      headers: {
+        Authorization: `Bears${localStorage.getItem("authToken")}`,
+      },
+      body: formData,
+    });
+
+    if (response.ok) {
+      const newWork = await response.json();
+      showModalWorks([await fetchWorks(), newWork]); //----mettre à jour la modal
+
+      showWorks([await fetchWorks(), newWork]); //-----metrte à jour les works de la page
+
+      closeModal(event); //----fermer la modal
+      form.reset(); //---vider le formulaire
+    } else {
+      throw new Error(`Echec de l'envoie du formulaire`);
+    }
+  } catch (error) {
+    document.querySelector(".erreur").textContent = error.message;
   }
 });
