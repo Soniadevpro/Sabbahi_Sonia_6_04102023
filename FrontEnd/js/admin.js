@@ -1,6 +1,6 @@
 // MODELE POUR STYLE LORSQUE CONNECTE
 
-let token = localStorage.getItem("authToken");
+const token = localStorage.getItem("authToken");
 const changeLog = document.querySelector(".login");
 const editBanner = document.querySelector(".edit-banner");
 const byeFilterBar = document.querySelector(".filterbar");
