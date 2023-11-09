@@ -143,8 +143,9 @@ document.getElementById("addPic").addEventListener("change", function (event) {
   const [file] = event.target.files;
   const previewContainer = document.querySelector(".imagePreview");
   if (file) {
-    const reader = new FileReader();
+    const reader = new FileReader(); //-- permet de lire les files
     reader.onload = function (e) {
+      //--- gestionnaire d'evenement comme window document ... onload charge des ressources externes
       const img = previewContainer.querySelector("img") || new Image();
       img.src = e.target.result;
       img.className = "selected-img";
@@ -152,13 +153,14 @@ document.getElementById("addPic").addEventListener("change", function (event) {
       previewContainer.innerHTML = "";
       previewContainer.appendChild(img);
     };
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(file); //----La fonction de FileReader lit et convertit File en chaîne de caractères.
   }
 });
 
 //------ Envois du formulaire---------------
+const formMain = document.getElementById("submit_form_js");
 
-document.getElementById("submit_form_js").addEventListener("click", async function (event) {
+formMain.addEventListener("click", async function (event) {
   event.preventDefault();
 
   const form = document.getElementById("form-valid");
@@ -168,6 +170,7 @@ document.getElementById("submit_form_js").addEventListener("click", async functi
 
   //--validation champs
   if (!addPic.files.length || !title.value || !catSelect.value) {
+    //-- si * ou * ou *sont false alors message d'erreur
     document.querySelector(".erreur").textContent = "Veuillez remplir tous les champs";
     return;
   }
@@ -175,17 +178,17 @@ document.getElementById("submit_form_js").addEventListener("click", async functi
   //----prépa données du formulaire formData
 
   const formData = new FormData();
-  formData.append("addPic", addPic.files[0]);
+  formData.append("image", addPic.files[0]);
   formData.append("title", title.value);
-  formData.append("cat_select", catSelect.value);
+  formData.append("category", catSelect.value);
 
-  //----envoi du formulaire
-
+  //----envoi du formulaire try catch pr verif
+  const token = localStorage.getItem("authToken");
   try {
     const response = await fetch("http://localhost:5678/api/works", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        Authorization: `Bearer ${token}`,
       },
       body: formData,
     });
@@ -195,7 +198,7 @@ document.getElementById("submit_form_js").addEventListener("click", async functi
       showModalWorks(updatedWorks); // mettre à jour la modal
       showWorks(updatedWorks); // mettre à jour les works de la page
       closeModal(event); //----fermer la modal
-      form.reset(); //---vider le formulaire
+      formMain.reset(); //---vider le formulaire
     } else {
       throw new Error(`Echec de l'envoie du formulaire`);
     }
