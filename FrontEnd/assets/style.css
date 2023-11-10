@@ -502,9 +502,9 @@ footer nav ul {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  width: 70%;
   font-size: 1.2em;
   font-weight: 400;
+  margin-top: 20px;
 }
 .inputmodal input,
 select {
@@ -512,6 +512,7 @@ select {
   height: 50px;
   background: #fff;
   box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+  font-size: 14px;
 }
 #valid {
   width: 183px;
@@ -544,4 +545,48 @@ select {
   max-width: 100%;
   max-height: 300px;
   margin-top: 10px;
+}
+
+.addphotos {
+  border: #1d6154 solid 1px;
+  border-radius: 60px;
+  background: white;
+  font-family: Syne;
+  font-size: 16px;
+  color: #1d6154;
+  padding: 11px 20px 11px 20px;
+}
+
+.addphotos:hover {
+  background: #1d6154;
+  color: white;
+  cursor: pointer;
+  transition: 400ms ease;
+  transform: scale(1.1);
+}
+
+.imagePreview {
+  background: #e8f1f6;
+  width: 400px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.imagePreview label {
+  color: #306685;
+  padding: 10px;
+  border-radius: 50px;
+  background: #cbd6dc;
+  line-height: normal;
+  width: 140px;
+  justify-content: center;
+  display: flex;
+}
+.selected-img {
+  width: 129px;
+  height: 200px;
+  padding: 0px;
 }
