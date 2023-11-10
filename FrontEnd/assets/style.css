@@ -467,6 +467,7 @@ footer nav ul {
   flex-direction: column;
   align-items: center;
   border-radius: 10px;
+  gap: 24px;
 }
 
 .background {
@@ -504,7 +505,7 @@ footer nav ul {
   gap: 12px;
   font-size: 1.2em;
   font-weight: 400;
-  margin-top: 20px;
+  margin-top: 50px;
 }
 .inputmodal input,
 select {
@@ -526,7 +527,9 @@ select {
 .js-modal-return {
   position: relative;
   left: -296px;
+  bottom: -21px;
 }
+
 .js-modal-close2 {
   position: relative;
   right: -298px;
@@ -535,7 +538,7 @@ select {
 .js-modal-close {
   position: relative;
   right: -298px;
-  bottom: 11px;
+  bottom: 0px;
 }
 .form_valid {
   display: flex;
@@ -550,11 +553,12 @@ select {
 .addphotos {
   border: #1d6154 solid 1px;
   border-radius: 60px;
-  background: white;
+  background: #1d6154;
   font-family: Syne;
   font-size: 16px;
-  color: #1d6154;
+  color: white;
   padding: 11px 20px 11px 20px;
+  text-decoration: none;
 }
 
 .addphotos:hover {
@@ -568,11 +572,10 @@ select {
 .imagePreview {
   background: #e8f1f6;
   width: 400px;
-  height: 200px;
+  height: 189px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
 }
 
 .imagePreview label {
