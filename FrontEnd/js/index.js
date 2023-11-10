@@ -6,7 +6,7 @@
 async function init() {
   const categories = await fetchCateg();
   const works = await fetchWorks();
-  showCategories(categories);
+  showCategories(categories, works);
   showWorks(works);
   showModalWorks(works);
   loadCategories();
