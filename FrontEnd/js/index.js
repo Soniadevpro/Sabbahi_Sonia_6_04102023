@@ -159,15 +159,14 @@ document.getElementById("addphotos").addEventListener("change", function (event)
 
 //------ Envois du formulaire---------------
 const formMain = document.getElementById("submit_form_js");
+const addPhotos = document.getElementById("addphotos");
 
 formMain.addEventListener("click", async function (event) {
   event.preventDefault();
 
-  const form = document.getElementById("form_valid");
-  const addPhotos = document.getElementById("addphotos");
   const title = document.getElementById("title");
   const catSelect = document.getElementById("cat_select");
-
+  const form = document.getElementById("form_valid");
   //--validation champs
   if (!addPhotos.files.length || !title.value || !catSelect.value) {
     //-- si * ou * ou *sont false alors message d'erreur
@@ -178,7 +177,7 @@ formMain.addEventListener("click", async function (event) {
   //----prépa données du formulaire formData
 
   const formData = new FormData();
-  formData.append("image", addPic.files[0]);
+  formData.append("image", addPhotos.files[0]);
   formData.append("title", title.value);
   formData.append("category", catSelect.value);
 
@@ -197,8 +196,15 @@ formMain.addEventListener("click", async function (event) {
       const updatedWorks = await fetchWorks();
       showModalWorks(updatedWorks); // mettre à jour la modal
       showWorks(updatedWorks); // mettre à jour les works de la page
-      closeModal(event); //----fermer la modal
+      // closeModal(event); //----fermer la modal
       form.reset(); //---vider le formulaire
+      document.querySelector(".selected-img").src = "";
+
+      // addPhotos.value = "";
+      // let imagePreview = document.querySelector(".selected-img");
+      // if (imagePreview) {
+      //   imagePreview.src = "";
+      // }
     } else {
       throw new Error(`Echec de l'envoie du formulaire`);
     }

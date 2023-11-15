@@ -550,7 +550,7 @@ select {
   margin-top: 10px;
 }
 
-.addphotos {
+.addphotos1 {
   border: #1d6154 solid 1px;
   border-radius: 60px;
   background: #1d6154;
@@ -561,7 +561,7 @@ select {
   text-decoration: none;
 }
 
-.addphotos:hover {
+.addphotos1:hover {
   background: #1d6154;
   color: white;
   cursor: pointer;
