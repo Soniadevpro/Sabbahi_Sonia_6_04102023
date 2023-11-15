@@ -73,7 +73,7 @@ function showWorks(works) {
     const img = document.createElement("img");
     img.src = work.imageUrl;
     //ajout d'un sous titre
-    const sousTitre = document.createElement("figsub");
+    const sousTitre = document.createElement("figcaption");
     sousTitre.innerHTML = work.title;
     //asso enfant parent
     gallery.appendChild(worksProjets);
@@ -91,7 +91,7 @@ function showModalWorks(works) {
   modalWrapp.innerHTML = "";
 
   for (const workModal of works) {
-    const showInModal = document.createElement("figuremod");
+    const showInModal = document.createElement("div");
     showInModal.setAttribute("class", "figure-modal");
     showInModal.setAttribute("id", workModal.id);
 
@@ -139,7 +139,7 @@ async function loadCategories() {
 }
 //Preview
 
-document.getElementById("addPic").addEventListener("change", function (event) {
+document.getElementById("addphotos").addEventListener("change", function (event) {
   const [file] = event.target.files;
   const previewContainer = document.querySelector(".imagePreview");
   if (file) {
@@ -163,13 +163,13 @@ const formMain = document.getElementById("submit_form_js");
 formMain.addEventListener("click", async function (event) {
   event.preventDefault();
 
-  const form = document.getElementById("form-valid");
-  const addPic = document.getElementById("addPic");
+  const form = document.getElementById("form_valid");
+  const addPhotos = document.getElementById("addphotos");
   const title = document.getElementById("title");
   const catSelect = document.getElementById("cat_select");
 
   //--validation champs
-  if (!addPic.files.length || !title.value || !catSelect.value) {
+  if (!addPhotos.files.length || !title.value || !catSelect.value) {
     //-- si * ou * ou *sont false alors message d'erreur
     document.querySelector(".erreur").textContent = "Veuillez remplir tous les champs";
     return;
@@ -198,7 +198,7 @@ formMain.addEventListener("click", async function (event) {
       showModalWorks(updatedWorks); // mettre à jour la modal
       showWorks(updatedWorks); // mettre à jour les works de la page
       closeModal(event); //----fermer la modal
-      formMain.reset(); //---vider le formulaire
+      form.reset(); //---vider le formulaire
     } else {
       throw new Error(`Echec de l'envoie du formulaire`);
     }
