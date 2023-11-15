@@ -78,20 +78,19 @@
                 <div class="imagePreview">
                   <i class="fa-regular fa-image" style="color: #cbd6dc"></i><img src="" class="selected-img" />
                   <label for="addphotos">+ Ajout photo</label>
-                  <input type="file" id="addphotos" class="addphotos" name="addphotos" placeholder="Image URL" required style="display: none" />
+                  <input type="file" id="addphotos" class="addphotos" name="addphotos" placeholder="Image URL" style="display: none" />
+                  <p class="format">jpg,png: 4mo max</p>
                 </div>
                 <!-- <label for="addPic">+ Ajout photo</label>
                 <input type="file" id="addPic" name=" addPic" placeholder="Image URL" required style="display: none" /> -->
                 <div class="inputmodal">
                   <label for="title">Titre</label>
-                  <input type="text" id="title" name="title" required />
+                  <input type="text" id="title" name="title" />
                   <label for="cat_select">Catégories</label>
-                  <select name="cat_select" id="cat_select" required></select>
+                  <select name="cat_select" id="cat_select"></select>
                 </div>
               </form>
-              <!-- <p class="invalid-form-message">Veuillez remplir tous les champs pour ajouter un projet</p>
-              <p class="valid-form-message">Formulaire enregistré !</p>
-              <p class="invalid-request-form-message">Une erreur s'est produite lors de la soumission du formulaire</p> -->
+
               <span class="erreur"></span>
               <button type="submit" class="submit_form" id="submit_form_js">Valider</button>
             </div>

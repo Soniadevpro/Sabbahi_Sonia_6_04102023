@@ -162,6 +162,13 @@ preview.addEventListener("change", function (event) {
 //------ Envois du formulaire---------------
 const formMain = document.getElementById("submit_form_js");
 const addPhotos = document.getElementById("addphotos");
+const selectImg = document.querySelector(".selected-img");
+
+addPhotos.addEventListener("click", () => {
+  if (selectImg) {
+    selectImg.style.display = "flex";
+  }
+});
 
 formMain.addEventListener("click", async function (event) {
   event.preventDefault();
@@ -169,11 +176,13 @@ formMain.addEventListener("click", async function (event) {
   const title = document.getElementById("title");
   const catSelect = document.getElementById("cat_select");
   const form = document.getElementById("form_valid");
+
   //--validation champs
   if (!addPhotos.files.length || !title.value || !catSelect.value) {
     //-- si * ou * ou *sont false alors message d'erreur
     document.querySelector(".erreur").textContent = "Veuillez remplir tous les champs";
     return;
+  } else {
   }
 
   //----prépa données du formulaire formData
@@ -200,13 +209,8 @@ formMain.addEventListener("click", async function (event) {
       showModalWorks(updatedWorks); // mettre à jour la modal
       showWorks(updatedWorks); // mettre à jour les works de la page
       closeModal(event); //----fermer la modal
-      console.log("Valeurs avant réinitialisation", {
-        title: title.value,
-        category: catSelect.value,
-      });
-      console.log("réi formulaire");
+
       form.reset(); //---vider le formulaire
-      console.log("formulaire envoyé");
       // document.querySelector(".selected-img").src = "";
 
       // addPhotos.value = "";
