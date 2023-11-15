@@ -137,9 +137,11 @@ async function loadCategories() {
     console.error("Erreur lors du chargement des catégories : ", error);
   }
 }
+
 //Preview
 
-document.getElementById("addphotos").addEventListener("change", function (event) {
+const preview = document.getElementById("addphotos");
+preview.addEventListener("change", function (event) {
   const [file] = event.target.files;
   const previewContainer = document.querySelector(".imagePreview");
   if (file) {
@@ -180,6 +182,7 @@ formMain.addEventListener("click", async function (event) {
   formData.append("image", addPhotos.files[0]);
   formData.append("title", title.value);
   formData.append("category", catSelect.value);
+  console.log(catSelect.value);
 
   //----envoi du formulaire try catch pr verif
   const token = localStorage.getItem("authToken");
@@ -196,9 +199,15 @@ formMain.addEventListener("click", async function (event) {
       const updatedWorks = await fetchWorks();
       showModalWorks(updatedWorks); // mettre à jour la modal
       showWorks(updatedWorks); // mettre à jour les works de la page
-      // closeModal(event); //----fermer la modal
+      closeModal(event); //----fermer la modal
+      console.log("Valeurs avant réinitialisation", {
+        title: title.value,
+        category: catSelect.value,
+      });
+      console.log("réi formulaire");
       form.reset(); //---vider le formulaire
-      document.querySelector(".selected-img").src = "";
+      console.log("formulaire envoyé");
+      // document.querySelector(".selected-img").src = "";
 
       // addPhotos.value = "";
       // let imagePreview = document.querySelector(".selected-img");
