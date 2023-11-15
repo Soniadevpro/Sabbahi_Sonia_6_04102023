@@ -160,25 +160,24 @@ preview.addEventListener("change", function (event) {
 });
 
 //------ Envois du formulaire---------------
-const formMain = document.getElementById("submit_form_js");
-const addPhotos = document.getElementById("addphotos");
+const submitForm = document.getElementById("submit_form_js");
 const selectImg = document.querySelector(".selected-img");
+const formMain = document.getElementById("form_valid");
 
-addPhotos.addEventListener("click", () => {
+preview.addEventListener("click", () => {
   if (selectImg) {
     selectImg.style.display = "flex";
   }
 });
 
-formMain.addEventListener("click", async function (event) {
+formMain.addEventListener("submit", async function (event) {
   event.preventDefault();
 
-  const title = document.getElementById("title");
-  const catSelect = document.getElementById("cat_select");
-  const form = document.getElementById("form_valid");
+  const title = document.getElementById("title").value;
+  const catSelect = document.getElementById("cat_select").value;
 
   //--validation champs
-  if (!addPhotos.files.length || !title.value || !catSelect.value) {
+  if (!preview.files.length || !title || !catSelect) {
     //-- si * ou * ou *sont false alors message d'erreur
     document.querySelector(".erreur").textContent = "Veuillez remplir tous les champs";
     return;
@@ -188,9 +187,10 @@ formMain.addEventListener("click", async function (event) {
   //----prépa données du formulaire formData
 
   const formData = new FormData();
-  formData.append("image", addPhotos.files[0]);
-  formData.append("title", title.value);
-  formData.append("category", catSelect.value);
+  formData.append("image", preview.files[0]);
+  console.log(preview.files[0]);
+  formData.append("title", title);
+  formData.append("category", catSelect);
   console.log(catSelect.value);
 
   //----envoi du formulaire try catch pr verif
@@ -210,7 +210,11 @@ formMain.addEventListener("click", async function (event) {
       showWorks(updatedWorks); // mettre à jour les works de la page
       closeModal(event); //----fermer la modal
 
-      form.reset(); //---vider le formulaire
+      formMain.reset(); //---vider le formulaire
+      let imagePreview = document.querySelector(".selected-img");
+      if (imagePreview) {
+        imagePreview.src = "";
+      }
       // document.querySelector(".selected-img").src = "";
 
       // addPhotos.value = "";
@@ -219,7 +223,8 @@ formMain.addEventListener("click", async function (event) {
       //   imagePreview.src = "";
       // }
     } else {
-      throw new Error(`Echec de l'envoie du formulaire`);
+      const errorText = await response.text(); // Ou response.json() si le serveur renvoie du JSON
+      throw new Error(`Échec de l'envoi du formulaire : ${errorText}`);
     }
   } catch (error) {
     console.error(error);

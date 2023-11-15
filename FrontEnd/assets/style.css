@@ -596,6 +596,14 @@ select {
   justify-content: center;
   display: flex;
 }
+.imagePreview img {
+  position: absolute;
+
+  height: 205px;
+
+  position: absolute;
+  top: 260px;
+}
 .format {
   color: #444;
   text-align: center;
@@ -605,10 +613,37 @@ select {
   font-weight: 400;
   line-height: normal;
 }
-.selected-img {
-  width: 158px;
-  height: 209px;
-  position: absolute;
-  top: 259px;
-  display: none;
+
+/* Forme et emplacement du bouton valider */
+.form-style {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.buttonform {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
+}
+.erreur {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.submit_form {
+  width: 237px;
+  display: flex;
+  justify-content: center;
+  border-radius: 60px;
+  background: #a7a7a7;
+  color: white;
+  border: none;
+}
+.submit_form:hover {
+  background: white;
+  color: #a7a7a7;
+  border: #a7a7a7 1px solid;
 }
