@@ -141,6 +141,11 @@ async function loadCategories() {
 //Preview
 
 const preview = document.getElementById("addphotos");
+const imageForm = document.querySelector(".imageForm");
+
+// Initialisation
+imageForm.style.display = "block"; // Masquer initialement .imageForm
+
 preview.addEventListener("change", function (event) {
   const [file] = event.target.files;
   const previewContainer = document.querySelector(".imagePreview");
@@ -150,13 +155,13 @@ preview.addEventListener("change", function (event) {
       //--- gestionnaire d'evenement comme window document ... onload charge des ressources externes
       const img = previewContainer.querySelector("img") || new Image();
       img.src = e.target.result;
-      img.className = "selected-img";
-
-      previewContainer.innerHTML = "";
+      // img.className = "selected-img";
+      // previewContainer.innerHTML = "";
       previewContainer.appendChild(img);
     };
     reader.readAsDataURL(file); //----La fonction de FileReader lit et convertit File en chaîne de caractères.
   }
+  imageForm.style.display = "none"; // Afficher .imageForm lorsqu'une image est sélectionnée
 });
 
 //------ Envois du formulaire---------------
@@ -164,24 +169,29 @@ const submitForm = document.getElementById("submit_form_js");
 const selectImg = document.querySelector(".selected-img");
 const formMain = document.getElementById("form_valid");
 
-preview.addEventListener("click", () => {
-  if (selectImg) {
-    selectImg.style.display = "flex";
-  }
-});
+// preview.addEventListener("click", () => {
+//   if (selectImg) {
+//     selectImg.style.display = "flex";
+//   }
+// });
 
 formMain.addEventListener("submit", async function (event) {
   event.preventDefault();
 
   const title = document.getElementById("title").value;
   const catSelect = document.getElementById("cat_select").value;
-
+  const errorMessageElement = document.querySelector(".erreur");
   //--validation champs
   if (!preview.files.length || !title || !catSelect) {
     //-- si * ou * ou *sont false alors message d'erreur
-    document.querySelector(".erreur").textContent = "Veuillez remplir tous les champs";
+
+    errorMessageElement.textContent = "Veuillez remplir tous les champs";
+    errorMessageElement.style.display = "block"; // Assurez-vous que l'élément est visible
     return;
   } else {
+    // Cacher le message d'erreur si les champs sont correctement remplis
+
+    errorMessageElement.style.display = "none";
   }
 
   //----prépa données du formulaire formData
@@ -206,22 +216,17 @@ formMain.addEventListener("submit", async function (event) {
 
     if (response.ok) {
       const updatedWorks = await fetchWorks();
+
+      alert("Projet ajouté avec succès !");
       showModalWorks(updatedWorks); // mettre à jour la modal
       showWorks(updatedWorks); // mettre à jour les works de la page
       closeModal(event); //----fermer la modal
 
       formMain.reset(); //---vider le formulaire
+      imageForm.style.display = "block"; // Afficher de nouveau .imageForm après réinitialisation
       let imagePreview = document.querySelector(".selected-img");
-      if (imagePreview) {
-        imagePreview.src = "";
-      }
-      // document.querySelector(".selected-img").src = "";
-
-      // addPhotos.value = "";
-      // let imagePreview = document.querySelector(".selected-img");
-      // if (imagePreview) {
-      //   imagePreview.src = "";
-      // }
+      imagePreview.src = "";
+      updateSubmitButtonState();
     } else {
       const errorText = await response.text(); // Ou response.json() si le serveur renvoie du JSON
       throw new Error(`Échec de l'envoi du formulaire : ${errorText}`);
@@ -231,3 +236,22 @@ formMain.addEventListener("submit", async function (event) {
     document.querySelector(".erreur").textContent = error.message;
   }
 });
+
+submitForm.disabled = true; // Désactiver le bouton lors de l'initialisation
+
+function updateSubmitButtonState() {
+  const title = document.getElementById("title").value;
+  const catSelect = document.getElementById("cat_select").value;
+  const isFormValid = preview.files.length && title && catSelect;
+
+  submitForm.disabled = !isFormValid; // Activer ou désactiver le bouton en fonction de la validité du formulaire
+  submitForm.style.backgroundColor = isFormValid ? "green" : "grey"; // Modifier la couleur du bouton
+}
+
+// Ajoutez des écouteurs d'événements pour chaque champ du formulaire
+preview.addEventListener("change", updateSubmitButtonState);
+document.getElementById("title").addEventListener("input", updateSubmitButtonState);
+document.getElementById("cat_select").addEventListener("change", updateSubmitButtonState);
+
+// Appel initial pour définir l'état initial du bouton
+updateSubmitButtonState();
