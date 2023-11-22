@@ -472,6 +472,7 @@ footer nav ul {
   gap: 24px;
   padding-top: 0px;
 }
+
 #titlemodal1 {
   font-size: 22px;
 }
@@ -495,18 +496,7 @@ footer nav ul {
   align-items: center;
   flex-direction: column;
 }
-.modaladdpic {
-  border-radius: 50px;
-  background-color: #cbd6dc;
-  width: 173px;
-  display: block;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #306685;
-  cursor: pointer;
-}
+
 .inputmodal {
   display: flex;
   flex-direction: column;
@@ -537,6 +527,8 @@ select {
   left: -296px;
   bottom: -40px;
   font-size: 18px;
+
+  color: black;
 }
 
 .js-modal-close {
@@ -597,12 +589,9 @@ select {
   display: flex;
 }
 .imagePreview img {
+  height: 209px;
   position: absolute;
-
-  height: 205px;
-
-  position: absolute;
-  top: 260px;
+  top: 275px;
 }
 .format {
   color: #444;
@@ -644,6 +633,4 @@ select {
 }
 .submit_form:hover {
   background: white;
-  color: #a7a7a7;
-  border: #a7a7a7 1px solid;
 }

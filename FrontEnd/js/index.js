@@ -245,7 +245,7 @@ function updateSubmitButtonState() {
   const isFormValid = preview.files.length && title && catSelect;
 
   submitForm.disabled = !isFormValid; // Activer ou désactiver le bouton en fonction de la validité du formulaire
-  submitForm.style.backgroundColor = isFormValid ? "green" : "grey"; // Modifier la couleur du bouton
+  submitForm.style.backgroundColor = isFormValid ? "#1d6154" : "grey"; // Modifier la couleur du bouton
 }
 
 // Ajoutez des écouteurs d'événements pour chaque champ du formulaire
