@@ -127,6 +127,7 @@ async function loadCategories() {
   try {
     const categories = await fetchCateg();
     const selectElement = document.getElementById("cat_select");
+    selectElement.innerHTML = "";
     categories.forEach((category) => {
       const option = document.createElement("option");
       option.value = category.id;

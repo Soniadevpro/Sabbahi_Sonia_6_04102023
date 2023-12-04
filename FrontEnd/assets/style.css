@@ -576,6 +576,8 @@ select {
   align-items: center;
   border-radius: 3px;
   padding: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .imagePreview label {
@@ -590,8 +592,6 @@ select {
 }
 .imagePreview img {
   height: 209px;
-  position: absolute;
-  top: 275px;
 }
 .format {
   color: #444;
