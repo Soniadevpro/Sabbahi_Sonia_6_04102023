@@ -576,7 +576,6 @@ select {
   align-items: center;
   border-radius: 3px;
   padding: 20px;
-  display: flex;
   justify-content: center;
 }
 
