@@ -5,13 +5,13 @@
 
 
 
-## **Notre mission :** 🚀
+## Notre mission : 🚀
 
 Je travaille en tant que développeuse **front-end** dans l'agence ArchiWebos. Ma mission va consister à développer un portfolio d'architecte, en commençant par la _page de présentation_ des travaux de celle ci, la _page de connexion_ de l'administrateur du site(**client**).
 
 
 
-## **Consignes :**📑
+## Consignes :📑
 
 - Filter les travaux de l'architecte par catégories : Appartements/hôtels, restaurants, objets.
 - Créer une page de connexion, une fois celle ci créée, intégrer un mode administrateur une fois le client connecté.
@@ -19,7 +19,7 @@ Je travaille en tant que développeuse **front-end** dans l'agence ArchiWebos. M
 
 
 
-## **Objectifs :**🎯
+## Objectifs :🎯
 
 - Se perfectionner avec le langage **JavaScript**.
 - Utiliser des fonctions **asynchrones avec fetch**.
